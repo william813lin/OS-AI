@@ -35,7 +35,7 @@
         }
 
         /* ==========================================================================
-           系統主版面佈局
+           系統主版面佈局 (Left Sidebar + Right Main Content)
            ========================================================================== */
         .sidebar {
             width: 320px;
@@ -45,6 +45,7 @@
             flex-direction: column;
             padding: 30px 20px;
             z-index: 10;
+            flex-shrink: 0;
         }
 
         .main-content {
@@ -70,22 +71,23 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
         .logo-area i { font-size: 32px; color: var(--cyan); text-shadow: 0 0 15px var(--cyan); }
         .logo-area h1 { font-size: 20px; font-weight: 700; letter-spacing: 1px; background: linear-gradient(to right, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .menu-label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; }
+        .menu-label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        
         .vendor-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
         .vendor-btn {
             width: 100%;
-            padding: 16px 20px;
+            padding: 14px 18px;
             background: rgba(255,255,255,0.02);
             border: 1px solid var(--border);
             border-radius: 12px;
             color: var(--text-main);
             text-align: left;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
@@ -99,7 +101,65 @@
             box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
             transform: translateX(5px);
         }
-        .vendor-btn span.score-tag { font-size: 12px; padding: 2px 8px; border-radius: 20px; }
+        .vendor-btn span.score-tag { font-size: 11px; padding: 2px 8px; border-radius: 20px; }
+
+        /* ==========================================================================
+           【全新亮點】左側可收折戰略預警中心樣式
+           ========================================================================== */
+        .toggle-news-btn {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid var(--purple);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .toggle-news-btn:hover {
+            background: var(--purple);
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        .news-container {
+            margin-top: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            max-height: 380px; /* 控制高度，避免撐破側邊欄 */
+            transition: all 0.4s ease-in-out;
+            opacity: 1;
+        }
+        .news-container.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin-top: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .news-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--warning);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 12px;
+        }
+        .news-card.danger { border-left-color: var(--danger); }
+        .news-card h4 { font-size: 13px; color: #fff; margin: 4px 0; }
+        .news-card p { color: var(--text-dim); line-height: 1.5; margin-top: 4px; }
+        
+        .news-tag {
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #fff;
+            display: inline-block;
+        }
 
         /* ==========================================================================
            首頁大盤資料表
@@ -116,7 +176,7 @@
         .trend-stable { color: var(--text-dim); }
 
         /* ==========================================================================
-           雷達圖與超強大 Tooltip 提示系統
+           雷達圖與 Tooltip 提示系統
            ========================================================================== */
         .radar-container { 
             width: 240px; 
@@ -146,12 +206,8 @@
             border-radius: 4px;
             transition: background 0.2s;
         }
-        .radar-lbl:hover {
-            background: rgba(34, 211, 238, 0.15);
-            color: #fff;
-        }
+        .radar-lbl:hover { background: rgba(34, 211, 238, 0.15); color: #fff; }
 
-        /* Tooltip 浮動框架重構：加寬以容納豐富的競爭對手型號與財務數據 */
         .radar-lbl .tooltip {
             visibility: hidden;
             width: 280px;
@@ -175,11 +231,7 @@
             pointer-events: none;
         }
         
-        .radar-lbl:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-
+        .radar-lbl:hover .tooltip { visibility: visible; opacity: 1; }
         .radar-lbl .tooltip::after {
             content: "";
             position: absolute;
@@ -191,7 +243,6 @@
             border-color: var(--purple) transparent transparent transparent;
         }
 
-        /* 內文標籤小樣式 */
         .tt-title { color: var(--cyan); font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; margin-bottom: 6px; font-size: 13px; display: flex; justify-content: space-between; }
         .tt-highlight { color: var(--warning); font-weight: 600; }
 
@@ -217,13 +268,38 @@
         </div>
 
         <h3 class="menu-label">主要設備供應商</h3>
-        <ul class="vendor-list">
+        <ul class="vendor-list" style="margin-bottom: 25px;">
             <li><button class="vendor-btn active" onclick="switchVendor('asml', this)"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-circle"></i> ASML</span><span class="score-tag badge-safe">92分</span></button></li>
             <li><button class="vendor-btn" onclick="switchVendor('amat', this)"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-circle"></i> AMAT</span><span class="score-tag badge-warn">88分</span></button></li>
             <li><button class="vendor-btn" onclick="switchVendor('lrcx', this)"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-circle"></i> LAM</span><span class="score-tag badge-danger">85分</span></button></li>
             <li><button class="vendor-btn" onclick="switchVendor('tel', this)"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-circle"></i> TEL</span><span class="score-tag badge-safe">87分</span></button></li>
             <li><button class="vendor-btn" onclick="switchVendor('kla', this)"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-circle"></i> KLA</span><span class="score-tag badge-safe">89分</span></button></li>
         </ul>
+
+        <h3 class="menu-label">
+            <span><i class="fa-solid fa-bell" style="color:var(--warning);"></i> AI 戰略預警中心</span>
+            <button class="toggle-news-btn" id="toggle-btn" onclick="toggleNewsCenter()">隱藏面板</button>
+        </h3>
+
+        <div class="news-container" id="news-drawer">
+            <div class="news-card danger">
+                <span class="news-tag" style="background:var(--danger)">禁令預警</span>
+                <span style="font-size:10px; color:var(--text-dim); float:right;">即時更新</span>
+                <h4>美政權考慮收緊售後支援</h4>
+                <p>對 14nm 以下關鍵設備加嚴限制。<b>AI 避險策略：</b> 建議立即啟動服務轉移談判，要求轉換為非美籍主體承接。</p>
+            </div>
+
+            <div class="news-card">
+                <span class="news-tag" style="background:var(--warning)">產能擴張</span>
+                <span style="font-size:10px; color:var(--text-dim); float:right;">今日動態</span>
+                <h4>TEL 宣佈加碼日本九州新廠</h4>
+                <p>擴張先進晶圓塗佈設備（Track）產線。<b>AI 議價提示：</b> 擴廠初期廠商急於拉高首批產線稼動率，Q3 議價勝率極高。</p>
+            </div>
+        </div>
+        
+        <div style="margin-top:auto; padding-top:15px; border-top:1px solid var(--border); font-size:11px; color:var(--text-dim); text-align:center;">
+            系統狀態：全模組正常運作中
+        </div>
     </div>
 
     <div class="main-content">
@@ -253,8 +329,8 @@
             </div>
             
             <div style="background:rgba(0,0,0,0.2); padding:15px; border-radius:10px; border:1px solid var(--border); font-size:13px; color:var(--text-dim); line-height:1.6;">
-                <strong style="color:#fff;"><i class="fa-solid fa-shield-halved"></i> 議價制衡提示（供高層參閱）：</strong><br>
-                將游標移動到右側雷達圖的 **「價格競爭/替代方案」** 標籤，可直接調閱當前市場上可作為談判談判籌碼的**替代競爭者與機台型號（如 Nikon, ASM XP8, AMAT Producer 等）**，有助於反制單一供應商的壟斷漲價。
+                <strong style="color:#fff;"><i class="fa-solid fa-desktop"></i> 面板操作演示：</strong><br>
+                左側的 **「AI 戰略預警中心」** 已改為動態抽屜設計。點擊「隱藏面板」會以流暢的動畫將新聞收合，釋放側邊欄空間；點擊「顯示面板」則能隨時呼叫即時宏觀避險策略。
             </div>
         </div>
 
@@ -266,21 +342,11 @@
             <div class="radar-container">
                 <div class="radar-poly" id="radar-shape"></div>
                 
-                <div class="radar-lbl" style="top:-25px; left:36%;" id="lbl-f1">財務健全
-                    <span class="tooltip" id="tt-f1"></span>
-                </div>
-                <div class="radar-lbl" style="top:40%; right:-40px;" id="lbl-f2">技術獨佔
-                    <span class="tooltip" id="tt-f2"></span>
-                </div>
-                <div class="radar-lbl" style="bottom:-20px; right:10%;" id="lbl-f3">產能彈性
-                    <span class="tooltip" id="tt-f3"></span>
-                </div>
-                <div class="radar-lbl" style="bottom:-20px; left:10%;" id="lbl-f4">價格競爭
-                    <span class="tooltip" id="tt-f4"></span>
-                </div>
-                <div class="radar-lbl" style="top:40%; left:-40px;" id="lbl-f5">服務量能
-                    <span class="tooltip" id="tt-f5"></span>
-                </div>
+                <div class="radar-lbl" style="top:-25px; left:36%;" id="lbl-f1">財務健全<span class="tooltip" id="tt-f1"></span></div>
+                <div class="radar-lbl" style="top:40%; right:-40px;" id="lbl-f2">技術獨佔<span class="tooltip" id="tt-f2"></span></div>
+                <div class="radar-lbl" style="bottom:-20px; right:10%;" id="lbl-f3">產能彈性<span class="tooltip" id="tt-f3"></span></div>
+                <div class="radar-lbl" style="bottom:-20px; left:10%;" id="lbl-f4">價格競爭<span class="tooltip" id="tt-f4"></span></div>
+                <div class="radar-lbl" style="top:40%; left:-40px;" id="lbl-f5">服務量能<span class="tooltip" id="tt-f5"></span></div>
             </div>
 
             <div class="metric-grid">
@@ -301,19 +367,24 @@
         </div>
     </div>
 
-    <div class="notification-overlay" id="news-hub">
-        <div class="alert-toast danger" id="toast-1">
-            <div class="close-toast" onclick="document.getElementById('toast-1').style.display='none'"><i class="fa-solid fa-xmark"></i></div>
-            <div style="font-size: 20px; color: var(--danger);"><i class="fa-solid fa-flag-usa"></i></div>
-            <div>
-                <span class="alert-tag" style="background:var(--danger)">禁令預警</span>
-                <h4 style="font-size:14px; color:#fff; margin-top:3px;">川普政府考慮收緊 14nm 以下關鍵設備售後支援</h4>
-                <p style="font-size:12px; color:var(--text-dim); margin-top:5px;"><strong>AI 避險策略：</strong> 立即啟動服務轉移談判，要求將現場支援法人轉換為非美籍主體承接。</p>
-            </div>
-        </div>
-    </div>
-
     <script>
+        // 側邊欄新聞中心顯示/隱藏函數
+        function toggleNewsCenter() {
+            const newsDrawer = document.getElementById('news-drawer');
+            const toggleBtn = document.getElementById('toggle-btn');
+            
+            if (newsDrawer.classList.contains('collapsed')) {
+                newsDrawer.classList.remove('collapsed');
+                toggleBtn.innerText = '隱藏面板';
+                toggleBtn.style.background = 'rgba(168, 85, 247, 0.1)';
+            } else {
+                newsDrawer.classList.add('collapsed');
+                toggleBtn.innerText = '顯示面板';
+                toggleBtn.style.background = 'rgba(34, 211, 238, 0.15)';
+            }
+        }
+
+        // 核心硬核指標資料庫
         const vendorDatabase = {
             asml: {
                 name: "ASML (曝光機巨頭)",
@@ -321,7 +392,6 @@
                 m2: "地緣政治 DUV 出口限制影響",
                 strategy: "聚焦鎖定 2027 產能 Slot。因其具備絕對壟斷權，談判核心在於要求其白紙黑字承諾升級套件（Upgrade Kit）的折扣與技術轉移優先權，而非單純砍單機價格。",
                 clip: "polygon(50% 10%, 95% 30%, 80% 80%, 30% 75%, 15% 40%)",
-                // 數據全面重構
                 tt_finance: "<div class='tt-title'><span>財務深度報告</span><span style='color:var(--emerald)'>卓越</span></div>• <b>年營收 (Revenue):</b> €27.6 B<br>• <b>毛利率 (GM):</b> <span class='tt-highlight'>51.4%</span><br>• <b>年增率 (YoY):</b> +12.3%<br>※ EUV 高客單價支撐強勁現金流。",
                 tt_tech: "<div class='tt-title'><span>核心技術與製程</span></div>• <b>EUV 絕對壟斷:</b> Twinscan NXE/EXE 系列<br>• <b>Advanced Immersion:</b> NXT:2100i / 2050i<br>掌控先進節點（7nm以下）最核心的微影曝光產能。",
                 tt_capacity: "<div class='tt-title'><span>全球產能與工廠</span></div>• <b>主要基地:</b> 荷蘭 Veldhoven (總裝廠)<br>• <b>關鍵依賴:</b> 德國蔡司 (Zeiss) 光學鏡頭供應速度<br>• <b>產能現況:</b> 產能高度集中，地緣韌性中等。",
@@ -358,10 +428,10 @@
                 m2: "日圓匯率劇烈波動風險",
                 strategy: "利用日圓低檔優勢，啟動『匯率雙向鎖定條款』。同時，針對其剛擴張的九州新產線，爭取成為新一代 Clean Track 設備的 Early Adopter (早期驗證戶)，以此爭取高達 15% 的議價籌碼。",
                 clip: "polygon(50% 15%, 80% 40%, 75% 75%, 25% 80%, 20% 30%)",
-                tt_finance: "<div class='tt-title'><span>財務深度報告</span><span style='color:var(--emerald)'>穩定</span></div>• <b>年營收 (Revenue):</b> ¥2.1 Trillion (約$15.2B)<br>• <b>毛利率 (GM):</b> <span class='tt-highlight'>43.1%</span><br>• <b>年增率 (YoY):</b> +6.5%<br>※ 零負債經營，受惠日圓利多，帳面現金極充裕。",
+                tt_finance: "<div class='tt-title'><span>財務深度報告</span><span style='color:var(--emerald)'>穩定</span></div>• <b>年營收 (Revenue):</b> ¥2.1 Trillion<br>• <b>毛利率 (GM):</b> <span class='tt-highlight'>43.1%</span><br>• <b>年增率 (YoY):</b> +6.5%<br>※ 零負債經營，受惠日圓利多，帳面現金極充裕。",
                 tt_tech: "<div class='tt-title'><span>核心技術與製程</span></div>• <b>EUV Track 獨佔:</b> Clean Track LITHIUS Pro Z<br>• <b>熱處理 / 擴散爐:</b> TELINDY 系列<br>與 ASML EUV 微影曝光機台具有近乎 100% 的物理綁定度。",
                 tt_capacity: "<div class='tt-title'><span>全球產能與工廠</span></div>• <b>主要基地:</b> 日本九州 (合志廠)、岩手廠、山梨廠<br>• <b>在地分散:</b> 全日本多製造基地，分散單一廠區風險<br>• <b>產能現況:</b> 九州新產線完工，亞太出貨速度最快。",
-                tt_price: "<div class='tt-title'><span>替代方案與競爭者</span></div>• <b>Track (塗佈顯影) 替代:</b><br>&nbsp;&nbsp;- <span class='tt-highlight'>SUSS MicroTec / 漢民代理</span> (僅限成熟/特殊製程)<br>• <b>Etch (蝕刻) 替代:</b><br>&nbsp;&nbsp;- <span class='tt-highlight'>Lam Research:</span> 2300 Kiyo / Versys 系列<br>※ 先進 Track 幾無競爭者，但蝕刻可引進 Lam 壓制。",
+                tt_price: "<div class='tt-title'><span>替代方案與競爭者</span></div>• <b>Track (塗佈顯影) 替代:</b><br>&nbsp;&nbsp;- <span class='tt-highlight'>SUSS MicroTec / 漢民代理</span> (僅限成熟節點)<br>• <b>Etch (蝕刻) 替代:</b><br>&nbsp;&nbsp;- <span class='tt-highlight'>Lam Research:</span> 2300 Kiyo / Versys 系列<br>※ 先進 Track 幾無競爭者，但蝕刻可引進 Lam 壓制。",
                 tt_service: "<div class='tt-title'><span>全球服務與維修據點</span></div>• <b>分布據點:</b> 台灣(新竹/台中/台南)、日本全國、南韓<br>• <b>維修團隊:</b> 亞洲區駐廠密度最高，技術支援不中斷<br>• <b>駐廠量能:</b> 無美國地緣禁令限制，非美籍專家調度靈活。"
             },
             kla: {
@@ -371,7 +441,7 @@
                 strategy: "KLA 毛利極高 (近60%)，單機幾乎沒有降價先例。AI 建議將談判主戰場移至『校正與軟體授權費』，要求將高階晶圓缺陷檢測演算法的免授權年限由 1 年延長至 3 年，變相降低長線持有成本 (TCO)。",
                 clip: "polygon(50% 12%, 95% 35%, 85% 85%, 20% 70%, 10% 35%)",
                 tt_finance: "<div class='tt-title'><span>財務深度報告</span><span style='color:var(--emerald)'>卓越</span></div>• <b>年營收 (Revenue):</b> $10.5 B<br>• <b>毛利率 (GM):</b> <span class='tt-highlight'>59.2%</span><br>• <b>年增率 (YoY):</b> +8.7%<br>※ 獲利能力稱霸全球設備業，抵禦砍價能力極強。",
-                tt_tech: "<div class='tt-title'><span>核心技術與製程</span></div>• <b>明場寬頻檢測:</b> 29xx / 39xx 晶圓缺陷檢測<br>• <b>量測與覆蓋控制:</b> Archer 750 (Overlay)<br>良率控制（Yield Management）與先進製程檢測的絕對霸主。",
+                tt_tech: "<div class='tt-title'><span>核心技術與製程</span></div>• <b>明場寬頻檢測:</b> 29xx / 39xx 晶圓缺陷檢測<br>• <b>量測與覆蓋控制:</b> Archer 750 (Overlay)<br>良率控制與先進製程檢測的絕對霸主。",
                 tt_capacity: "<div class='tt-title'><span>全球產能與工廠</span></div>• <b>主要基地:</b> 美國加州 Milpitas、新加坡制造中心<br>• <b>分散布局:</b> 研發與核心光學在美，模組組裝移往星國<br>• <b>產能現況:</b> 客製化光學精密組裝，產能控管極嚴格。",
                 tt_price: "<div class='tt-title'><span>替代方案與競爭者</span></div>• <b>明場檢測 / 覆蓋量測替代:</b><br>&nbsp;&nbsp;- <span class='tt-highlight'>Applied Materials:</span> UVision / PROVISION 電子束<br>&nbsp;&nbsp;- <span class='tt-highlight'>ASML (HMI):</span> eP5 / eP10 電子束檢測機<br>※ 光學明場檢測 KLA 具備統治力，電子束可引入 AMAT/ASML 比價。",
                 tt_service: "<div class='tt-title'><span>全球服務與維修據點</span></div>• <b>分布據點:</b> 台灣全區、南韓、新加坡、美國矽谷<br>• <b>維修團隊:</b> 專精於高階光學演算法與硬體校正的 AE 團隊<br>• <b>駐廠量能:</b> 軟體遠端診斷速度快，硬體光學更換需原廠高度介入。"
@@ -387,7 +457,7 @@
             document.getElementById('tt-f5').innerHTML = data.tt_service;
         }
 
-        // 預設加載 ASML 資料
+        // 預設加載 ASML
         updateTooltips('asml');
 
         function switchVendor(vendorKey, buttonElement) {
@@ -400,7 +470,6 @@
             document.getElementById('panel-strategy').innerText = data.strategy;
             document.getElementById('radar-shape').style.clipPath = data.clip;
             
-            // 同步更新 Tooltips
             updateTooltips(vendorKey);
         }
     </script>
