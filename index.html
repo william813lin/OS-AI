@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Sourcing Intelligence Geopolitical Financial Portal v8.0</title>
+    <title>AI-Sourcing Intelligence Geopolitical Financial Portal v9.2</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
@@ -36,23 +36,25 @@
 
         /* 主版面佈局 */
         .sidebar {
-            width: 340px;
+            width: 350px;
             background-color: var(--bg-side);
             border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            padding: 22px 18px;
+            padding: 20px 16px;
             z-index: 10;
             flex-shrink: 0;
-            justify-content: space-between; /* 讓新聞確保在最下方 */
+            justify-content: space-between;
             height: 100%;
-            overflow-y: auto;
         }
 
         .sidebar-top-group {
             display: flex;
             flex-direction: column;
             gap: 2px;
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 4px;
         }
 
         .main-content {
@@ -78,23 +80,23 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
-        .logo-area i { font-size: 32px; color: var(--cyan); text-shadow: 0 0 15px var(--cyan); }
-        .logo-area h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; background: linear-gradient(to right, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-area i { font-size: 30px; color: var(--cyan); text-shadow: 0 0 15px var(--cyan); }
+        .logo-area h1 { font-size: 17px; font-weight: 700; letter-spacing: 0.5px; background: linear-gradient(to right, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .menu-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; margin-top: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .menu-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--purple); padding-left: 6px; }
         
-        .vendor-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+        .vendor-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
         .vendor-btn {
             width: 100%;
-            padding: 10px 12px;
+            padding: 9px 11px;
             background: rgba(255,255,255,0.02);
             border: 1px solid var(--border);
             border-radius: 10px;
             color: var(--text-main);
             text-align: left;
-            font-size: 13.5px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
@@ -108,22 +110,23 @@
             box-shadow: 0 0 12px rgba(34, 211, 238, 0.15);
             transform: translateX(4px);
         }
-        .vendor-btn span.score-tag { font-size: 10.5px; padding: 2px 6px; border-radius: 20px; }
+        .vendor-btn span.score-tag { font-size: 10px; padding: 2px 5px; border-radius: 20px; }
 
         /* 戰略搜尋欄位 */
-        .search-box-container { margin-bottom: 12px; position: relative; }
-        .search-input { width: 100%; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 12px; padding: 12px 18px 12px 45px; color: #fff; font-size: 13.5px; outline: none; transition: all 0.3s; }
+        .search-box-container { margin-bottom: 10px; position: relative; }
+        .search-input { width: 100%; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 12px; padding: 11px 15px 11px 42px; color: #fff; font-size: 13px; outline: none; transition: all 0.3s; }
         .search-input:focus { border-color: var(--cyan); box-shadow: 0 0 15px rgba(34, 211, 238, 0.3); background: #0f172a; }
-        .search-box-container i { position: absolute; left: 18px; top: 15px; color: var(--cyan); font-size: 15px; }
+        .search-box-container i { position: absolute; left: 16px; top: 14px; color: var(--cyan); font-size: 14px; }
 
-        /* ====== 左下角市場預警中心樣式 ====== */
+        /* 市場預警中心 */
         .alert-panel {
-            margin-top: 20px;
-            background: rgba(15, 23, 42, 0.6);
+            margin-top: 15px;
+            background: rgba(15, 23, 42, 0.8);
             border: 1px solid rgba(245, 158, 11, 0.2);
             border-radius: 12px;
             padding: 12px;
             transition: all 0.3s ease-in-out;
+            flex-shrink: 0;
         }
         .alert-header {
             display: flex;
@@ -136,120 +139,114 @@
         .toggle-alert-btn { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 12px; padding: 2px 6px; border-radius: 4px; transition: all 0.2s; }
         .toggle-alert-btn:hover { color: #fff; background: rgba(255,255,255,0.05); }
         
-        .news-wrapper { 
-            max-height: 180px; 
-            overflow-y: auto; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 8px; 
-            transition: max-height 0.3s ease-in-out, opacity 0.2s; 
-        }
-        .news-wrapper.collapsed { max-height: 0; opacity: 0; overflow: hidden; pointer-events: none; margin-top: 0; }
+        .news-wrapper { max-height: 160px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        .news-wrapper.collapsed { max-height: 0; opacity: 0; overflow: hidden; }
         
-        .news-card { background: rgba(30, 41, 59, 0.4); border: 1px solid var(--border); border-left: 4px solid var(--warning); border-radius: 8px; padding: 10px; font-size: 11.5px; transition: all 0.2s; }
+        .news-card { background: rgba(30, 41, 59, 0.4); border: 1px solid var(--border); border-left: 4px solid var(--warning); border-radius: 8px; padding: 10px; font-size: 11.5px; }
         .news-card.danger { border-left-color: var(--danger); }
         .news-card.info { border-left-color: var(--purple); }
         .news-card.highlight-news { border-color: var(--cyan) !important; box-shadow: 0 0 10px rgba(34, 211, 238, 0.3); background: rgba(34, 211, 238, 0.05); }
         
         .news-tag-row { display: flex; gap: 5px; margin-bottom: 4px; }
         .news-badge { font-size: 9.5px; padding: 1px 5px; border-radius: 4px; font-weight: bold; }
-        .news-card h4 { font-size: 12.5px; color: #fff; margin: 2px 0; font-weight: bold; }
-        .news-card p { color: var(--text-dim); line-height: 1.4; text-align: justify; }
+        .news-card h4 { font-size: 12px; color: #fff; margin: 2px 0; font-weight: bold; }
+        .news-card p { color: var(--text-dim); line-height: 1.4; }
 
-        /* 三表結構樣式 */
-        .table-wrapper { margin-bottom: 20px; }
-        .sub-table-title { font-size: 13.5px; font-weight: 700; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; }
+        /* 表格結構樣式 */
+        .table-wrapper { margin-bottom: 15px; }
+        .sub-table-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; }
         .sub-table-title i { color: var(--cyan); }
         
-        .health-table { width: 100%; border-collapse: separate; border-spacing: 0 5px; }
-        .health-table th { padding: 8px; text-align: left; color: var(--text-dim); font-size: 11px; text-transform: uppercase; }
-        .health-table td { background: rgba(255,255,255,0.02); padding: 10px 8px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); font-size: 12.5px; }
+        .health-table { width: 100%; border-collapse: separate; border-spacing: 0 4px; }
+        .health-table th { padding: 6px 8px; text-align: left; color: var(--text-dim); font-size: 10.5px; text-transform: uppercase; }
+        .health-table td { background: rgba(255,255,255,0.02); padding: 9px 8px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); font-size: 12px; }
         .health-table tr td:first-child { border-left: 1px solid var(--border); border-radius: 6px 0 0 6px; font-weight: bold; color: var(--cyan); }
         .health-table tr td:last-child { border-right: 1px solid var(--border); border-radius: 0 6px 6px 0; }
 
-        .delta-tag { font-size: 10.5px; margin-left: 4px; padding: 1px 3px; border-radius: 4px; }
+        .delta-tag { font-size: 10px; margin-left: 4px; padding: 1px 3px; border-radius: 4px; }
         .delta-up { color: var(--emerald); }
         .delta-down { color: var(--danger); }
 
         /* 法說會問答專屬樣式 */
-        .earning-call-section { background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 10px; padding: 12px; margin-top: 5px; }
-        .qa-topic-block { margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 10px; }
+        .earning-call-section { background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 10px; padding: 12px; }
+        .qa-topic-block { margin-bottom: 10px; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 8px; }
         .qa-topic-block:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
-        .qa-badge { background: rgba(168, 85, 247, 0.15); color: #C084FC; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: bold; display: inline-block; margin-bottom: 5px; border: 1px solid rgba(168, 85, 247, 0.3); }
-        .qa-question { font-size: 12.5px; font-weight: 700; color: var(--warning); margin-bottom: 4px; display: flex; gap: 5px; }
-        .qa-answer { font-size: 12.5px; color: var(--text-main); line-height: 1.5; text-align: justify; padding-left: 18px; position: relative; }
+        .qa-badge { background: rgba(168, 85, 247, 0.15); color: #C084FC; font-size: 10.5px; padding: 2px 6px; border-radius: 4px; font-weight: bold; display: inline-block; margin-bottom: 4px; }
+        .qa-question { font-size: 12px; font-weight: 700; color: var(--warning); margin-bottom: 4px; display: flex; gap: 5px; }
+        .qa-answer { font-size: 12px; color: var(--text-main); line-height: 1.5; padding-left: 18px; position: relative; }
         .qa-answer::before { content: "答："; position: absolute; left: 0; color: var(--emerald); font-weight: bold; }
 
         /* 五星雷達圖與 Tooltip */
-        .radar-container { width: 220px; height: 220px; border: 1px dashed rgba(34, 211, 238, 0.2); border-radius: 50%; margin: 40px auto; position: relative; }
+        .radar-container { width: 210px; height: 210px; border: 1px dashed rgba(34, 211, 238, 0.2); border-radius: 50%; margin: 35px auto; position: relative; }
         .radar-poly { position: absolute; width: 100%; height: 100%; background: rgba(34, 211, 238, 0.15); border: 2px solid var(--cyan); transition: all 0.5s ease; filter: drop-shadow(0 0 6px var(--cyan)); }
         
-        .radar-lbl { position: absolute; font-size: 13px; color: var(--cyan); cursor: pointer; border: 1px solid rgba(34, 211, 238, 0.3); background: rgba(15, 23, 42, 0.85); padding: 4px 8px; border-radius: 6px; font-weight: 600; white-space: nowrap; transition: all 0.2s; }
-        .radar-lbl:hover { border-color: var(--cyan); box-shadow: 0 0 10px rgba(34, 211, 238, 0.4); color: #fff; }
-        
-        .radar-lbl .tooltip { visibility: hidden; width: 320px; background-color: #0b1329; color: #f8fafc; text-align: left; border: 1.5px solid var(--cyan); border-radius: 10px; padding: 14px; position: absolute; z-index: 100; box-shadow: 0 15px 35px rgba(0,0,0,0.9); opacity: 0; transition: opacity 0.25s, transform 0.25s; font-size: 12px; line-height: 1.6; pointer-events: none; transform: scale(0.95); }
+        .radar-lbl { position: absolute; font-size: 12.5px; color: var(--cyan); cursor: pointer; border: 1px solid rgba(34, 211, 238, 0.3); background: rgba(15, 23, 42, 0.85); padding: 4px 7px; border-radius: 6px; font-weight: 600; white-space: nowrap; }
+        .radar-lbl .tooltip { visibility: hidden; width: 330px; background-color: #0b1329; color: #f8fafc; text-align: left; border: 1.5px solid var(--cyan); border-radius: 10px; padding: 14px; position: absolute; z-index: 100; box-shadow: 0 15px 35px rgba(0,0,0,0.9); opacity: 0; transition: opacity 0.25s, transform 0.25s; font-size: 12px; line-height: 1.6; pointer-events: none; transform: scale(0.95); }
         .radar-lbl:hover .tooltip { visibility: visible; opacity: 1; transform: scale(1); }
 
-        #lbl-f1 .tooltip { bottom: 130%; left: 50%; transform: translateX(-50%) scale(0.95); }
-        #lbl-f1:hover .tooltip { transform: translateX(-50%) scale(1); }
+        #lbl-f1 .tooltip { bottom: 130%; left: 50%; transform: translateX(-50%); }
         #lbl-f2 .tooltip { top: -20px; right: 125%; }
         #lbl-f3 .tooltip { bottom: 125%; right: 0; }
         #lbl-f4 .tooltip { bottom: 125%; left: 0; }
         #lbl-f5 .tooltip { top: -20px; left: 125%; }
 
-        .tt-header { font-size: 13.5px; color: var(--cyan); font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 6px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-        .tt-row { display: flex; margin-bottom: 5px; }
-        .tt-label { width: 75px; color: var(--text-dim); font-weight: bold; flex-shrink: 0; }
+        .tt-header { font-size: 13px; color: var(--cyan); font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 6px; margin-bottom: 8px; }
+        .tt-row { display: flex; margin-bottom: 4px; }
+        .tt-label { width: 85px; color: var(--text-dim); font-weight: bold; flex-shrink: 0; }
         .tt-value { color: #f8fafc; flex-grow: 1; }
         .tt-highlight { color: var(--warning); font-weight: bold; }
 
-        .strategy-box { background: rgba(34, 211, 238, 0.05); border-left: 4px solid var(--cyan); padding: 12px; border-radius: 4px; margin-top: 10px; font-size: 12.5px; line-height: 1.5; }
-        .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+        .strategy-box { background: rgba(34, 211, 238, 0.05); border-left: 4px solid var(--cyan); padding: 12px; border-radius: 4px; margin-top: 8px; font-size: 12px; line-height: 1.5; }
+        .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
         .metric-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 8px 10px; border-radius: 8px; }
-        .metric-card h3 { font-size: 13px; margin-top: 4px; }
+        .metric-card h3 { font-size: 12.5px; margin-top: 4px; }
 
         .badge-safe { background: rgba(16, 185, 129, 0.15); color: var(--emerald); border: 1px solid var(--emerald); }
         .badge-warn { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid var(--warning); }
         .badge-danger { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid var(--danger); }
+        
+        .sidebar-top-group::-webkit-scrollbar { width: 4px; }
+        .sidebar-top-group::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
         ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
     </style>
 </head>
 <body>
 
     <!-- 左側導覽列 -->
     <div class="sidebar">
-        <!-- 上半部控制群組 -->
         <div class="sidebar-top-group">
             <div class="logo-area">
                 <i class="fa-solid fa-earth-asia"></i>
                 <div>
                     <h1>AI-SOURCING INTEL</h1>
-                    <p style="font-size: 10px; color: var(--text-dim);">全球地緣財務穿透門戶 v8.0</p>
+                    <p style="font-size: 10px; color: var(--text-dim);">全球地緣財務穿透門戶 v9.2</p>
                 </div>
             </div>
 
             <div class="search-box-container">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" class="search-input" id="portal-search" placeholder="搜尋廠商名稱 (如 ASML, Lam)..." oninput="handleSearch()">
+                <input type="text" class="search-input" id="portal-search" placeholder="搜尋廠商 (如 ASML, 智程, 北方華創)..." oninput="handleSearch()">
             </div>
 
-            <h3 class="menu-label">歐美日一線巨頭 (高毛利/先進製程)</h3>
+            <h3 class="menu-label">歐美日一線巨頭 (高毛利/先進黃光與週邊)</h3>
             <ul class="vendor-list" style="margin-bottom: 8px;">
                 <li><button class="vendor-btn active" id="btn-asml" onclick="switchVendor('asml')"><span>ASML (微影曝光機)</span><span class="score-tag badge-safe">F: 91</span></button></li>
-                <li><button class="vendor-btn" id="btn-lrcx" onclick="switchVendor('lrcx')"><span>Lam Research (高階蝕刻)</span><span class="score-tag badge-warn">F: 81</span></button></li>
-                <li><button class="vendor-btn" id="btn-tel" onclick="switchVendor('tel')"><span>TEL (塗佈顯影機)</span><span class="score-tag badge-warn">F: 84</span></button></li>
+                <li><button class="vendor-btn" id="btn-tel" onclick="switchVendor('tel')"><span>TEL (塗佈顯影機 / Clean)</span><span class="score-tag badge-warn">F: 84</span></button></li>
+                <li><button class="vendor-btn" id="btn-amat" onclick="switchVendor('amat')"><span>AMAT (薄膜/PVD/CVD)</span><span class="score-tag badge-safe">F: 89</span></button></li>
+                <li><button class="vendor-btn" id="btn-kla" onclick="switchVendor('kla')"><span>KLA (前道量測/良率管理)</span><span class="score-tag badge-safe">F: 92</span></button></li>
             </ul>
 
-            <h3 class="menu-label">中國本土替代陣營 (高 YoY 增速)</h3>
+            <h3 class="menu-label">大陸本土國產化替代陣營 (清洗與關鍵前道)</h3>
             <ul class="vendor-list">
-                <li><button class="vendor-btn" id="btn-naura" onclick="switchVendor('naura')"><span>北方華創 (平台型巨頭)</span><span class="score-tag badge-safe">F: 94</span></button></li>
-                <li><button class="vendor-btn" id="btn-pmis" onclick="switchVendor('pmis')"><span>上海精測 (前道量檢測突破)</span><span class="score-tag badge-warn">F: 87</span></button></li>
-                <li><button class="vendor-btn" id="btn-sjs" onclick="switchVendor('sjs')"><span>盛吉盛 (設備翻新改造)</span><span class="score-tag badge-warn">F: 81</span></button></li>
+                <li><button class="vendor-btn" id="btn-zse" onclick="switchVendor('zse')"><span>智程半導體 ZSE (清洗 / Track)</span><span class="score-tag badge-safe">F: 88</span></button></li>
+                <li><button class="vendor-btn" id="btn-naura" onclick="switchVendor('naura')"><span>北方華創 (平台型/清洗/熱處理)</span><span class="score-tag badge-safe">F: 94</span></button></li>
+                <li><button class="vendor-btn" id="btn-amec" onclick="switchVendor('amec')"><span>中微半導體 (高階介電蝕刻)</span><span class="score-tag badge-safe">F: 91</span></button></li>
+                <li><button class="vendor-btn" id="btn-sjs" onclick="switchVendor('sjs')"><span>盛吉盛 (黃光週邊翻新改造)</span><span class="score-tag badge-warn">F: 81</span></button></li>
             </ul>
         </div>
 
-        <!-- 左下角：市場資訊預警中心 (支援展開/折疊功能) -->
+        <!-- 左下角：市場資訊預警中心 -->
         <div class="alert-panel">
             <div class="alert-header" onclick="toggleAlertCenter()">
                 <div class="alert-title">
@@ -262,17 +259,16 @@
             </div>
             
             <div class="news-wrapper" id="alert-news-container">
-                <!-- 預警動態新聞由 JS 驅動與聯動 -->
+                <!-- 預警新聞 JS 動態驅動 -->
             </div>
         </div>
     </div>
 
     <!-- 右側主要工作區 -->
     <div class="main-content">
-        
         <!-- 左半部：三大戰略表格 -->
         <div class="glass-panel" style="display: flex; flex-direction: column; justify-content: flex-start; gap: 12px;">
-            <div class="section-title" style="font-size:15px; font-weight:bold;"><i class="fa-solid fa-shield-halved" style="color:var(--cyan)"></i> 供應商全球財報穿透與法說會意見中控台</div>
+            <div class="section-title" style="font-size:14px; font-weight:bold;"><i class="fa-solid fa-shield-halved" style="color:var(--cyan)"></i> 供應商全球財報穿透與法說會意見中控台</div>
             
             <!-- 表一：核心財務三表 -->
             <div class="table-wrapper">
@@ -288,7 +284,7 @@
                         </tr>
                     </thead>
                     <tbody id="table-body-finance">
-                        <!-- JS 動態更新 -->
+                        <!-- JS 更新 -->
                     </tbody>
                 </table>
             </div>
@@ -307,27 +303,26 @@
                         </tr>
                     </thead>
                     <tbody id="table-body-sourcing">
-                        <!-- JS 動態更新 -->
+                        <!-- JS 更新 -->
                     </tbody>
                 </table>
             </div>
 
             <!-- 表三：Earnings Call 核心問答焦點 -->
             <div class="table-wrapper" style="margin-bottom: 0;">
-                <div class="sub-table-title"><i class="fa-solid fa-comments-dollar" style="color:var(--purple);"></i> 表三：最新 Earnings Call / 戰略股東會 核心問答焦點摘要</div>
+                <div class="sub-table-title"><i class="fa-solid fa-comments-dollar" style="color:var(--purple);"></i> 表三：最新 營運追蹤 / 戰略股東會 核心問答焦點摘要</div>
                 <div class="earning-call-section" id="table-body-earnings">
-                    <!-- JS 動態更新 -->
+                    <!-- JS 更新 -->
                 </div>
             </div>
         </div>
 
         <!-- 右半部：動態 360° 五星雷達圖面板 -->
         <div class="glass-panel" id="detail-panel">
-            <div class="section-title" style="font-size:14px;"><i class="fa-solid fa-crosshairs" style="color:var(--cyan);"></i> 360° 供應商採購綜合防禦雷達</div>
+            <div class="section-title" style="font-size:13px;"><i class="fa-solid fa-crosshairs" style="color:var(--cyan);"></i> 360° 供應商採購綜合防禦雷達</div>
             
-            <h2 id="panel-vendor-name" style="font-size: 22px; margin-bottom: 3px; color: #fff;">ASML (微影曝光機)</h2>
+            <h2 id="panel-vendor-name" style="font-size: 20px; margin-bottom: 2px; color: #fff;">ASML (微影曝光機)</h2>
             
-            <!-- 五角星雷達定位 -->
             <div class="radar-container">
                 <div class="radar-poly" id="radar-shape"></div>
                 
@@ -337,7 +332,7 @@
                 </div>
                 
                 <div class="radar-lbl" style="top:32%; right:-40px;" id="lbl-f2">
-                    技術獨佔 <i class="fa-solid fa-crown"></i>
+                    技術優勢 <i class="fa-solid fa-crown"></i>
                     <span class="tooltip" id="tt-f2"></span>
                 </div>
                 
@@ -352,7 +347,7 @@
                 </div>
                 
                 <div class="radar-lbl" style="top:32%; left:-40px;" id="lbl-f5">
-                    產能彈性 <i class="fa-solid fa-industry"></i>
+                    自主配套 <i class="fa-solid fa-industry"></i>
                     <span class="tooltip" id="tt-f5"></span>
                 </div>
             </div>
@@ -368,100 +363,96 @@
                 </div>
             </div>
 
-            <h4 style="font-size: 13px; color:var(--cyan);"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 採購攻防作戰策略</h4>
+            <h4 style="font-size: 12.5px; color:var(--cyan);"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 採購攻防作戰策略</h4>
             <div class="strategy-box" id="panel-strategy">載入中...</div>
         </div>
     </div>
 
-    <!-- JavaScript 資料庫、連動與顯示/隱藏控制器 -->
     <script>
-        // 新聞資料庫 (動態關聯各廠商)
         const industryNews = [
-            { id: "n1", target: "asml", type: "政策禁令", level: "danger", title: "荷蘭擬全面擴大先進 DUV 售後維保禁令", desc: "傳限制措施將延伸至部分已裝機 Twinscan 浸潤式設備，ASML 官方表示正密切評估對亞洲區服務據點與合約利潤之衝擊。" },
-            { id: "n2", target: "lrcx", type: "市場併購", level: "info", title: "Lam Research 傳正秘密洽談收購某先進 ALD 原料供應商", desc: "此戰略併購旨在全面防禦 ASM International 在高深寬比原子層沉積（ALD）市場的威脅，強化 SILPE 產品組合線。" },
-            { id: "n3", target: "naura", type: "政策禁令", level: "danger", title: "非美市場出口管制白名單再度收緊", desc: "北方華創在手成熟製程訂單大爆滿，國內晶圓廠為防範零組件斷鍊風暴，紛紛加開 2-3 倍備件庫存。" },
-            { id: "n4", target: "tel", type: "產能風險", level: "warning", title: "九州晶圓廠大擴建，引發日本本土化學流體精密組件產能排擠", desc: "TEL 塗佈顯影機（Track）部分特殊噴嘴交付時程傳出局部雜音，採購需留意下半年裝機排程調配。" },
-            { id: "n5", target: "pmis", type: "市場併購", level: "info", title: "前道量測市場割喉戰：本土大廠積極啟動子公司整合", desc: "上海精測獲新一輪戰術資金挹注，全面加速 28nm 明場缺陷檢測光學算法專利併購以對抗 KLA 封鎖。" }
+            { id: "n1", target: "asml", type: "政策禁令", level: "danger", title: "荷蘭擬全面擴大先進 DUV 售後維保禁令", desc: "傳限制措施將延伸至部分已裝機 Twinscan 浸潤式設備，ASML 表示正密切評估對亞洲區運營之利潤衝擊。" },
+            { id: "n5", target: "zse", type: "國產替代", level: "info", title: "智程半導體高階單片清洗設備（Wet Clean）打入一線晶圓廠", desc: "在大陸晶圓廠加速「去美化」潮中，大連智程的清洗設備及 Track 改造出貨放量，訂單能見度已排至年底。" },
+            { id: "n2", target: "tel", type: "匯率波動", level: "warning", title: "日圓波動加劇，TEL 研擬部分合約切換結算幣別", desc: "為了穩定 Clean Track 與熱處理設備大中華區利潤，東京威力積極調整商務報價結構。" }
         ];
 
         const vendorDatabase = {
             asml: {
                 id: "asml", name: "ASML (微影曝光機)", m1: "EUV 系統毛利支撐效益", m2: "地緣政治導致 DUV 營收衰退風險",
                 revenue: "€27.6 B <span class='delta-tag delta-up'>YoY +12.3%</span>", profit: "€7.4 B", gm: "51.4%", fcf: "€5.8 B", leadTime: "14 - 16 個月", trend: "<span class='delta-up'>延長</span>", fxRisk: "低 (歐元結算)", loadingRate: "90%",
-                strategy: "ASML 在先進製程屬絕對壟斷。採購策略應著重在鎖定裝機與蔡司鏡頭排程。商務上硬體折讓難度極高，可全力爭取將 Litho InSight 良率軟體授權或長期駐廠 SLA 維保費用進行包裹打折。",
+                strategy: "ASML 屬黃光絕對壟斷。商務上硬體折讓極難，建議可全力爭取將 Litho InSight 良率優化軟體授權或長期駐廠運營合約（SLA）進行打包談判減價。",
                 clip: "polygon(50% 10%, 95% 35%, 85% 75%, 20% 85%, 25% 45%)",
-                tt_f1: `<div class='tt-header'><i class='fa-solid fa-money-check-dollar'></i> 核心財務監測</div><div class='tt-row'><span class='tt-label'>季度營收:</span><span class='tt-value'>€27.6 B</span></div><div class='tt-row'><span class='tt-label'>毛利率:</span><span class='tt-value tt-highlight'>51.4%</span></div><div class='tt-row'><span class='tt-label'>YoY 增速:</span><span class='tt-value' style='color:var(--emerald)'>+12.3%</span></div>`,
-                tt_f2: `<div class='tt-header'><i class='fa-solid fa-microchip'></i> 技術獨佔防禦</div><div class='tt-row'><span class='tt-label'>獨佔核心:</span><span class='tt-value'>0.33 & 0.55 High-NA EUV 全球獨家供應</span></div>`,
-                tt_f3: `<div class='tt-header'><i class='fa-solid fa-users-gear'></i> 全球現場服務能量</div><div class='tt-row'><span class='tt-label'>機台Service:</span><span class='tt-value'>提供 24/7 全天候黃光區駐廠工程支援</span></div><div class='tt-row'><span class='tt-label'>分布據點:</span><span class='tt-value tt-highlight'>林口/新竹/台中/台南技術支援中心</span></div>`,
-                tt_f4: `<div class='tt-header'><i class='fa-solid fa-code-compare'></i> 地緣價格競爭與對手 Model</div><div class='tt-row'><span class='tt-label'>主要競爭者:</span><span class='tt-value'>Nikon, Canon (僅限於成熟 DUV)</span></div><div class='tt-row'><span class='tt-label'>對手Model:</span><span class='tt-value tt-highlight'>Nikon NSR-S636E, Canon FPA-6300ES6</span></div>`,
-                tt_f5: `<div class='tt-header'><i class='fa-solid fa-warehouse'></i> 製造工廠多元性與產能</div><div class='tt-row'><span class='tt-label'>製造工廠:</span><span class='tt-value'>荷蘭 Veldhoven、美國康乃狄克州、台灣</span></div><div class='tt-row'><span class='tt-label'>目前產能:</span><span class='tt-value tt-highlight'>EUV 年產約 45-50 台，DUV 約 300 台</span></div>`,
-                earnings: [{ topic: "成熟製程 DUV 禁令遞補效應", q: "擴大禁令是否重創下半年營收？", a: "歐美日先進節點大廠對 Twinscan 浸潤式系統增量需求足以全面遞補非美市場缺口。" }]
+                tt_f1: `<div class='tt-header'>核心財務監測</div><div class='tt-row'><span class='tt-label'>季度營收:</span><span class='tt-value'>€27.6 B</span></div>`,
+                tt_f2: `<div class='tt-header'>技術獨佔防禦</div><div class='tt-row'><span class='tt-label'>獨佔核心:</span><span class='tt-value'>0.33 & 0.55 High-NA EUV 全球唯一</span></div>`,
+                tt_f3: `<div class='tt-header'>服務能量</div>`, tt_f4: ``, tt_f5: ``,
+                earnings: [{ topic: "成熟製程 DUV 禁令效應", q: "擴大售後禁令是否重創下半年營收？", a: "歐美日先進節點大廠對 Twinscan 浸潤式系統的強勁需求，足以完全遞補非美區域之缺口。" }]
             },
-            lrcx: {
-                id: "lrcx", name: "Lam Research (高階蝕刻)", m1: "HAR高深寬比蝕刻獨佔率", m2: "記憶體大廠資本支出修正波及",
-                revenue: "$14.3 B <span class='delta-tag delta-down'>YoY -4.2%</span>", profit: "$3.8 B", gm: "45.8%", fcf: "$3.1 B", leadTime: "10 - 12 個月", trend: "<span class='delta-stable'>持平</span>", fxRisk: "低 (美金結算)", loadingRate: "72%",
-                strategy: "Lam Research 在 3D NAND 高深寬比（HAR）蝕刻具極高壟斷性。近期因記憶體拉貨走緩，其工廠產能稼動率下滑至 72%，此時正是採購對其發動機台組合綑綁（Bundling）談判的大好時機！",
-                clip: "polygon(50% 20%, 85% 35%, 70% 65%, 40% 75%, 35% 35%)",
-                tt_f1: `<div class='tt-header'><i class='fa-solid fa-money-check-dollar'></i> 核心財務監測</div><div class='tt-row'><span class='tt-label'>毛利率:</span><span class='tt-value tt-highlight'>45.8%</span></div>`,
-                tt_f2: `<div class='tt-header'><i class='fa-solid fa-microchip'></i> 技術獨佔防禦</div><div class='tt-row'><span class='tt-label'>獨佔核心:</span><span class='tt-value'>3D NAND 120比高深寬比接觸孔蝕刻壟斷</span></div>`,
-                tt_f3: `<div class='tt-header'><i class='fa-solid fa-users-gear'></i> 全球現場服務能量</div><div class='tt-row'><span class='tt-label'>分布據點:</span><span class='tt-value tt-highlight'>新竹、台中、台南、韓國平澤、美國奧勒岡</span></div>`,
-                tt_f4: `<div class='tt-header'><i class='fa-solid fa-code-compare'></i> SILPE 與前道蝕刻競爭者 Model</div><div class='tt-row'><span class='tt-label'>主要競爭者:</span><span class='tt-value'>AMAT, ASM International, 東京電子(TEL)</span></div><div class='tt-row'><span class='tt-label'>對手Model:</span><span class='tt-value tt-highlight'>AMAT Producer, ASM XP8, TEL Tactras</span></div>`,
-                tt_f5: `<div class='tt-header'><i class='fa-solid fa-warehouse'></i> 製造工廠多元性與產能</div><div class='tt-row'><span class='tt-label'>製造工廠:</span><span class='tt-value'>美國奧勒岡、馬來西亞檳城新廠、奧地利</span></div>`,
-                earnings: [{ topic: "大馬廠降本與殺價空間", q: "如何應對記憶體客戶砍價？", a: "透過將生產線移往馬來西亞檳城以降低基礎成本，將給予戰略客戶更有彈性的商務方案。" }]
+            zse: {
+                id: "zse", name: "智程半導體 ZSE (清洗 / 黃光週邊)", m1: "國產 Wet Clean 替代紅利與成熟產線配套放量", m2: "高端精密傳輸部件（如 Robot 軸承）海外供應鏈合規風險",
+                revenue: "¥12.5 億 <span class='delta-tag delta-up'>YoY +31.2%</span>", profit: "¥1.6 億", gm: "41.5%", fcf: "¥1.1 億", leadTime: "6 - 8 個月", trend: "<span class='delta-stable'>持平</span>", fxRisk: "極低 (人民幣結算)", loadingRate: "92%",
+                strategy: "大連智程目前核心優勢在於【槽式/單片濕法清洗設備（Wet Clean）】以及【黃光 Track 機台國產化改造】。在商務攻防上，其價格較美系/日系大廠具備 30% 以上的優勢，建議將其作為成熟製程線的 Second Source 終極制衡籌碼，用以倒逼日系大廠（如 TEL）進行合約讓利。",
+                clip: "polygon(50% 15%, 85% 40%, 80% 75%, 45% 80%, 35% 45%)",
+                tt_f1: `<div class='tt-header'>核心財務監測</div><div class='tt-row'><span class='tt-label'>營收動態:</span><span class='tt-value'>Wet Clean與Track出貨高速增長</span></div><div class='tt-row'><span class='tt-label'>毛利率:</span><span class='tt-value tt-highlight'>41.5% (國產化高毛利)</span></div>`,
+                tt_f2: `<div class='tt-header'>技術替代壁壘</div><div class='tt-row'><span class='tt-label'>核心主業:</span><span class='tt-value tt-highlight'>單片與槽式濕法清洗設備、Track 塗佈顯影機改造優化</span></div>`,
+                tt_f3: `<div class='tt-header'>在地服務響應</div><div class='tt-row'><span class='tt-label'>響應速度:</span><span class='tt-value'>大陸北方及一線半導體基地派駐效率高</span></div>`,
+                tt_f4: `<div class='tt-header'>主要商務對手</div><div class='tt-row'><span class='tt-label'>對手陣營:</span><span class='tt-value'>盛美半導體 (ACM)、至純科技、東京威力 (TEL)</span></div>`,
+                tt_f5: `<div class='tt-header'>自主配套彈性</div><div class='tt-row'><span class='tt-label'>去美化率:</span><span class='tt-value'>電控與腔體結構自主配套化程度高</span></div>`,
+                earnings: [{ topic: "清洗設備市場切入點", q: "如何與盛美、至純等本土清洗巨頭進行差異化競爭？", a: "我們除了專注單片高階清洗設備（Wet Clean）研發，更結合了豐富的黃光 Track（塗佈顯影）工藝優化經驗，能為客戶提供黃光至黃光後清洗的整線配套優化方案，大幅降低客戶持有成本（CoO）。" }]
             },
             tel: {
                 id: "tel", name: "Tokyo Electron (TEL)", m1: "Track 塗佈顯影機絕對市佔", m2: "日圓大幅波動導致利潤稀釋風險",
-                revenue: "¥2.1 兆 <span class='delta-tag delta-up'>YoY +15.2%</span>", profit: "¥5,800 億", gm: "43.1%", fcf: "¥4,600 億", leadTime: "8 - 10 個月", trend: "<span class='delta-down'>縮短</span>", fxRisk: "高 (日圓波動)", loadingRate: "78%",
-                strategy: "TEL 在 Clean Track 領域是唯一與 ASML EUV 聯合開發並綑綁銷售的巨頭。採購應善用目前其工廠 Loading 僅 78% 的空間，積極爭取整線採購的商務讓利。",
+                revenue: "¥2.1 兆", profit: "¥5,800 億", gm: "43.1%", fcf: "¥4,600 億", leadTime: "8 - 10 個月", trend: "<span class='delta-down'>縮短</span>", fxRisk: "高 (日圓波動)", loadingRate: "78%",
+                strategy: "TEL 在 Clean Track 領域是與 ASML 聯合開發的。採購應善用目前其工廠 Loading 空間，積極爭取整線採購的商務折讓。",
                 clip: "polygon(50% 15%, 82% 40%, 78% 70%, 40% 70%, 50% 30%)",
-                tt_f1: `<div class='tt-header'>財務監測</div>`, tt_f2: `<div class='tt-header'>技術獨佔</div>`,
-                tt_f3: `<div class='tt-header'>現場服務</div><div class='tt-row'><span class='tt-label'>分布據點:</span><span class='tt-value tt-highlight'>日本山梨、新竹、台中、台南科工區</span></div>`,
-                tt_f4: `<div class='tt-header'>競爭者 Model</div><div class='tt-row'><span class='tt-label'>主要競爭者:</span><span class='tt-value'>SUSS MicroTec, 芯源微(Kingsemi), 北方華創</span></div><div class='tt-row'><span class='tt-label'>對手Model:</span><span class='tt-value tt-highlight'>芯源微 KS-EUV-T200, SUSS ACS300</span></div>`,
-                tt_f5: `<div class='tt-header'>製造產能</div><div class='tt-row'><span class='tt-label'>製造工廠:</span><span class='tt-value'>日本山梨總廠、合志總廠、宮城總廠</span></div>`,
-                earnings: [{ topic: "日圓大幅波動避險措施", q: "如何抵禦匯率劇烈波動？", a: "大中華區部分合約已嘗試切換為美元或人民幣計價，鎖定利潤。"}]
+                tt_f1: ``, tt_f2: ``, tt_f3: ``, tt_f4: ``, tt_f5: ``,
+                earnings: [{ topic: "日圓波動措施", q: "如何抵禦匯率劇烈波動？", a: "大中華區部分新合約已嘗試切換為美元或人民幣計價，全面鎖定常態利潤。"}]
+            },
+            amat: {
+                id: "amat", name: "Applied Materials (AMAT)", m1: "薄膜/PVD/CVD平台高市佔", m2: "零部件供應鏈合規審查成本上升",
+                revenue: "$26.5 B", profit: "$7.2 B", gm: "47.2%", fcf: "$6.1 B", leadTime: "11 - 13 個月", trend: "<span class='delta-stable'>持平</span>", fxRisk: "低", loadingRate: "85%",
+                strategy: "AMAT 產品線龐大。建議採購發動『跨產品線交叉綑綁組合談判』。",
+                clip: "polygon(50% 12%, 90% 32%, 80% 70%, 30% 75%, 28% 40%)",
+                tt_f1: ``, tt_f2: ``, tt_f3: ``, tt_f4: ``, tt_f5: ``,
+                earnings: [{ topic: "背面供電技術", q: "先進節點背面供電導入進度？", a: "我們的 PVD 已獲核心晶圓代工廠認證。" }]
+            },
+            kla: {
+                id: "kla", name: "KLA (前道量測與良率管理)", m1: "明場缺陷檢測絕對技術壁壘", m2: "晶圓代工產線稼動率波動利潤稀釋",
+                revenue: "$10.5 B", profit: "$3.2 B", gm: "61.3%", fcf: "$2.9 B", leadTime: "12 - 14 個月", trend: "<span class='delta-up'>延長</span>", fxRisk: "低", loadingRate: "88%",
+                strategy: "KLA 毛利率高。建議將軟體演算法之年度升級費用鎖定在固定費率合約中。",
+                clip: "polygon(50% 8%, 98% 30%, 88% 80%, 25% 80%, 20% 35%)",
+                tt_f1: ``, tt_f2: ``, tt_f3: ``, tt_f4: ``, tt_f5: ``,
+                earnings: [{ topic: "GAA 架構 OCD 需求", q: "GAA 架構對檢測帶來多少增量？", a: "內部結構極複雜，每片晶圓的 OCD 檢測點數增加超 40%。" }]
             },
             naura: {
-                id: "naura", name: "北方華創 (平台型巨頭)", m1: "ICP蝕刻與熱處理國產市佔率", m2: "核心零部件去美化供應鏈鏈條斷裂風險",
-                revenue: "¥315 億 <span class='delta-tag delta-up'>YoY +35.4%</span>", profit: "¥48.2 億", gm: "43.8%", fcf: "¥38.5 億", leadTime: "6 - 8 個月", trend: "<span class='delta-up'>延長</span>", fxRisk: "低", loadingRate: "95%",
-                strategy: "受惠於擴產潮，在 ICP 蝕刻、PVD、清洗機市佔率急遽拉升。但也因為在手訂單爆滿、工廠 Loading高達 95%，其商務砍價讓利空間正在收窄。",
+                id: "naura", name: "北方華創 (平台型巨頭)", m1: "ICP蝕刻與熱處理國產市佔率", m2: "核心零部件去美化供應鏈斷裂風險",
+                revenue: "¥315 億", profit: "¥48.2 億", gm: "43.8%", fcf: "¥38.5 億", leadTime: "6 - 8 個月", trend: "<span class='delta-up'>延長</span>", fxRisk: "低", loadingRate: "95%",
+                strategy: "受惠於本土擴產潮，ICP 蝕刻、PVD、清洗機市佔率拉升。但也因為訂單爆滿、工廠 Loading 高，商務讓利空間收窄。",
                 clip: "polygon(50% 12%, 85% 35%, 82% 70%, 50% 85%, 35% 55%)",
-                tt_f1: `<div class='tt-header'>核心財務</div>`, tt_f2: `<div class='tt-header'>技術獨佔</div>`,
-                tt_f3: `<div class='tt-header'>現場服務</div><div class='tt-row'><span class='tt-label'>分布據點:</span><span class='tt-value tt-highlight'>北京亦莊、上海、武漢、西安、合肥</span></div>`,
-                tt_f4: `<div class='tt-header'>對手 Model</div><div class='tt-row'><span class='tt-label'>主要競爭者:</span><span class='tt-value'>AMAT, Lam Research, 中微半導體(AMEC)</span></div><div class='tt-row'><span class='tt-label'>對手Model:</span><span class='tt-value tt-highlight'>AMAT Endura, Lam Kiyo, 中微 Primo</span></div>`,
-                tt_f5: `<div class='tt-header'>製造產能</div><div class='tt-row'><span class='tt-label'>製造工廠:</span><span class='tt-value'>北京亦莊第一/第二生產基地、平谷製造基地</span></div>`,
-                earnings: [{ topic: "零組件去美化替代率進度", q: "射頻電源國產替代進展如何？", a: "成熟製程設備的零部件本土化率已突破 90%，交付不受外部法規干擾。" }]
+                tt_f1: ``, tt_f2: ``, tt_f3: ``, tt_f4: ``, tt_f5: ``,
+                earnings: [{ topic: "零組件本土化率", q: "射頻電源國產替代進展如何？", a: "成熟製程設備的零部件本土化率已全面突破 90%。" }]
             },
-            pmis: {
-                id: "pmis", name: "上海精測 (前道量檢測突破)", m1: "OCD與膜厚量測在成熟線市佔", m2: "高端明場光學零部件高度依賴美日進口",
-                revenue: "¥16.2 億 <span class='delta-tag delta-up'>YoY +29.5%</span>", profit: "¥2.1 億", gm: "46.5%", fcf: "¥1.5 億", leadTime: "6 - 8 個月", trend: "<span class='delta-stable'>持平</span>", fxRisk: "低", loadingRate: "85%",
-                strategy: "在前道膜厚與 OCD 關鍵尺寸量測取得破局，報價低於美商 KLA 約 35%+。採購可將其作為 Second Source，以此反向逼迫 KLA 調降商務維保與合約報價。",
-                clip: "polygon(50% 25%, 72% 50%, 75% 65%, 85% 72%, 70% 35%)",
-                tt_f1: `<div class='tt-header'>財務監測</div>`, tt_f2: `<div class='tt-header'>技術突破</div>`,
-                tt_f3: `<div class='tt-header'>現場服務</div><div class='tt-row'><span class='tt-label'>分布據點:</span><span class='tt-value tt-highlight'>上海、武漢研發總部、無錫、蘇州</span></div>`,
-                tt_f4: `<div class='tt-header'>競爭者 Model</div><div class='tt-row'><span class='tt-label'>主要競爭者:</span><span class='tt-value'>KLA (科磊), Onto Innovation, 中科飛測</span></div><div class='tt-row'><span class='tt-label'>對手Model:</span><span class='tt-value tt-highlight'>KLA SpectraShape, Onto Atlas, 中科飛測 SPX</span></div>`,
-                tt_f5: `<div class='tt-header'>製造多元性</div><div class='tt-row'><span class='tt-label'>製造工廠:</span><span class='tt-value'>上海青浦前道製造基地、武漢精測光電產業園</span></div>`,
-                earnings: [{ topic: "明場缺陷檢測進度", q: "高端明場設備何時能規模化？", a: "28nm 明場光學缺陷檢測設備已在國內一線代工廠線運作超半年。"}]
+            amec: {
+                id: "amec", name: "中微半導體 (AMEC)", m1: "高階 CCP 介電質蝕刻打入一線先進製程", m2: "海外專利侵權訴訟與地緣出口黑名單干擾",
+                revenue: "¥75.8 億", profit: "¥12.4 億", gm: "45.2%", fcf: "¥9.5 億", leadTime: "5 - 7 個月", trend: "<span class='delta-stable'>持平</span>", fxRisk: "低", loadingRate: "91%",
+                strategy: "中微在 CCP 介電質蝕刻機具價格優勢。採購可積極將其引入成熟與先進產線，作為逼迫美系大廠調降合約單價的終極破局籌碼。",
+                clip: "polygon(50% 15%, 88% 35%, 85% 75%, 45% 82%, 30% 50%)",
+                tt_f1: ``, tt_f2: ``, tt_f3: ``, tt_f4: ``, tt_f5: ``,
+                earnings: [{ topic: "訴訟進展", q: "如何應對海外專利與訴訟？", a: "我們的產品架構屬完全自主研發，不影響國內合約裝機進程。" }]
             },
             sjs: {
-                id: "sjs", name: "盛吉盛 (設備翻新改造)", m1: "二手設備翻新與零部件自修率", m2: "國際原廠核心配件停止供應地緣風險",
-                revenue: "¥12.8 億 <span class='delta-tag delta-up'>YoY +18.2%</span>", profit: "¥1.1 億", gm: "34.2%", fcf: "¥0.6 億", leadTime: "5 - 7 個月", trend: "<span class='delta-down'>縮短</span>", fxRisk: "中", loadingRate: "80%",
-                strategy: "舊機翻新改造擁有極佳的服務能量與價格競爭力（比原廠便宜 40% 以上）。採購可將其定位為成熟產線『降低持有成本（CoO）』的核心防線。",
+                id: "sjs", name: "盛吉盛 (黃光週邊翻新改造)", m1: "二手設備翻新與零部件自修率", m2: "國際原廠核心配件停止供應地緣風險",
+                revenue: "¥12.8 億", profit: "¥1.1 億", gm: "34.2%", fcf: "¥0.6 億", leadTime: "5 - 7 個月", trend: "<span class='delta-down'>縮短</span>", fxRisk: "中", loadingRate: "80%",
+                strategy: "舊機翻新改造擁有服務能量與價格競爭力。採購可將其定位為成熟產線降低持有成本（CoO）的核心防線。",
                 clip: "polygon(50% 35%, 60% 60%, 80% 70%, 90% 65%, 82% 32%)",
-                tt_f1: `<div class='tt-header'>核心財務</div>`, tt_f2: `<div class='tt-header'>改造壁壘</div>`,
-                tt_f3: `<div class='tt-header'>服務據點</div><div class='tt-row'><span class='tt-label'>分布據點:</span><span class='tt-value tt-highlight'>上海臨港新片區、浙江紹興、寧波維修基地</span></div>`,
-                tt_f4: `<div class='tt-header'>競爭者狀態</div><div class='tt-row'><span class='tt-label'>主要競爭者:</span><span class='tt-value'>亞翔集成, 靖江樺冠, 國際二手設備盤商</span></div><div class='tt-row'><span class='tt-label'>對手Model:</span><span class='tt-value tt-highlight'>無標準 Model，主攻 AMAT Centura / Lam Alliance 平台改裝</span></div>`,
-                tt_f5: `<div class='tt-header'>產能多元性</div><div class='tt-row'><span class='tt-label'>製造工廠:</span><span class='tt-value'>上海臨港半導體設備翻新基地、中芯紹興配套中心</span></div>`,
-                earnings: [{ topic: "自研 PECVD 技術進展", q: "自研薄膜設備進展如何？", a: "自研 PECVD 設備已在國內數家 6吋/8吋 SiC 先導線上實現統包交付。"}]
+                tt_f1: ``, tt_f2: ``, tt_f3: ``, tt_f4: ``, tt_f5: ``,
+                earnings: [{ topic: "自研 PECVD 技術", q: "自研薄膜設備進展如何？", a: "自研 PECVD 設備已在國內數家 6吋/8吋 SiC 先導線上實現統包交付。"}]
             }
         };
 
-        // 展開與隱藏預警中心
         let isAlertExpanded = true;
         function toggleAlertCenter() {
             const container = document.getElementById('alert-news-container');
             const icon = document.getElementById('alert-toggle-icon');
             isAlertExpanded = !isAlertExpanded;
-            
             if (isAlertExpanded) {
                 container.classList.remove('collapsed');
                 icon.innerHTML = `<i class="fa-solid fa-chevron-down"></i> 隱藏`;
@@ -471,17 +462,14 @@
             }
         }
 
-        // 渲染預警新聞 (並根據目前選擇的廠商進行動態高亮聯動)
         function renderAlertNews(activeVendorKey) {
             const container = document.getElementById('alert-news-container');
             let html = "";
-            
             industryNews.forEach(news => {
                 const isMatched = (news.target === activeVendorKey);
                 const badgeColor = news.level === 'danger' ? 'badge-danger' : (news.level === 'warning' ? 'badge-warn' : 'badge-safe');
                 const cardClass = news.level === 'danger' ? 'news-card danger' : (news.level === 'info' ? 'news-card info' : 'news-card');
                 const highlightClass = isMatched ? "highlight-news" : "";
-                
                 html += `
                     <div class="${cardClass} ${highlightClass}" id="news-${news.id}">
                         <div class="news-tag-row">
@@ -494,17 +482,6 @@
                 `;
             });
             container.innerHTML = html;
-
-            // 智慧滾動：如果是聯動新聞，自動將其置頂或滾動到視野內
-            if (activeVendorKey) {
-                const targetNews = industryNews.find(n => n.target === activeVendorKey);
-                if (targetNews) {
-                    setTimeout(() => {
-                        const element = document.getElementById(`news-${targetNews.id}`);
-                        element?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 150);
-                }
-            }
         }
 
         function renderTables(vendorData) {
@@ -517,7 +494,6 @@
                     <td>${vendorData.fcf}</td>
                 </tr>
             `;
-
             document.getElementById('table-body-sourcing').innerHTML = `
                 <tr>
                     <td>${vendorData.name}</td>
@@ -527,9 +503,8 @@
                     <td>${vendorData.loadingRate}</td>
                 </tr>
             `;
-
             let earningsHtml = "";
-            if (vendorData.earnings && vendorData.earnings.length > 0) {
+            if (vendorData.earnings) {
                 vendorData.earnings.forEach(item => {
                     earningsHtml += `
                         <div class="qa-topic-block">
@@ -545,19 +520,17 @@
 
         function updateTooltips(vendorKey) {
             const data = vendorDatabase[vendorKey];
-            document.getElementById('tt-f1').innerHTML = data.tt_f1;
-            document.getElementById('tt-f2').innerHTML = data.tt_f2;
-            document.getElementById('tt-f3').innerHTML = data.tt_f3;
-            document.getElementById('tt-f4').innerHTML = data.tt_f4;
-            document.getElementById('tt-f5').innerHTML = data.tt_f5;
+            document.getElementById('tt-f1').innerHTML = data.tt_f1 || `<div class='tt-header'>財務監測</div><div class='tt-row'><span class='tt-label'>現況:</span><span class='tt-value'>常態營運追蹤中</span></div>`;
+            document.getElementById('tt-f2').innerHTML = data.tt_f2 || `<div class='tt-header'>技術指標</div><div class='tt-row'><span class='tt-label'>現況:</span><span class='tt-value'>符合一線產線國產化驗證</span></div>`;
+            document.getElementById('tt-f3').innerHTML = data.tt_f3 || `<div class='tt-header'>服務能量</div>`;
+            document.getElementById('tt-f4').innerHTML = data.tt_f4 || `<div class='tt-header'>商務對手</div>`;
+            document.getElementById('tt-f5').innerHTML = data.tt_f5 || `<div class='tt-header'>產能彈性</div>`;
         }
 
         function switchVendor(vendorKey) {
             if (!vendorDatabase[vendorKey]) return;
-            
             document.querySelectorAll('.vendor-btn').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = document.getElementById(`btn-${vendorKey}`);
-            if (activeBtn) activeBtn.classList.add('active');
+            document.getElementById(`btn-${vendorKey}`)?.classList.add('active');
 
             const data = vendorDatabase[vendorKey];
             document.getElementById('panel-vendor-name').innerText = data.name;
@@ -568,8 +541,6 @@
             
             renderTables(data);
             updateTooltips(vendorKey);
-            
-            // 觸發左下角預警中心的高亮聯動
             renderAlertNews(vendorKey);
         }
 
@@ -582,15 +553,10 @@
                     break;
                 }
             }
-            if (matchedKey) {
-                switchVendor(matchedKey);
-                document.getElementById(`btn-${matchedKey}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
+            if (matchedKey) switchVendor(matchedKey);
         }
 
-        window.onload = function() {
-            switchVendor('asml');
-        };
+        window.onload = function() { switchVendor('asml'); };
     </script>
 </body>
 </html>
