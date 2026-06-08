@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Sourcing Intelligence Geopolitical Financial Portal v5.0</title>
+    <title>AI-Sourcing Intelligence Geopolitical Financial Portal v8.0</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
@@ -41,9 +41,18 @@
             border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            padding: 25px 20px;
+            padding: 22px 18px;
             z-index: 10;
             flex-shrink: 0;
+            justify-content: space-between; /* 讓新聞確保在最下方 */
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .sidebar-top-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
         .main-content {
@@ -69,15 +78,14 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .logo-area i { font-size: 32px; color: var(--cyan); text-shadow: 0 0 15px var(--cyan); }
         .logo-area h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; background: linear-gradient(to right, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .menu-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; margin-top: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .menu-label:first-of-type { margin-top: 0; }
+        .menu-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; margin-top: 12px; display: flex; justify-content: space-between; align-items: center; }
         
-        .vendor-list { list-style: none; display: flex; flex-direction: column; gap: 6px; max-height: 250px; overflow-y: auto; padding-right: 5px; }
+        .vendor-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
         .vendor-btn {
             width: 100%;
             padding: 10px 12px;
@@ -103,17 +111,50 @@
         .vendor-btn span.score-tag { font-size: 10.5px; padding: 2px 6px; border-radius: 20px; }
 
         /* 戰略搜尋欄位 */
-        .search-box-container { margin-bottom: 15px; position: relative; }
+        .search-box-container { margin-bottom: 12px; position: relative; }
         .search-input { width: 100%; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 12px; padding: 12px 18px 12px 45px; color: #fff; font-size: 13.5px; outline: none; transition: all 0.3s; }
         .search-input:focus { border-color: var(--cyan); box-shadow: 0 0 15px rgba(34, 211, 238, 0.3); background: #0f172a; }
         .search-box-container i { position: absolute; left: 18px; top: 15px; color: var(--cyan); font-size: 15px; }
 
-        /* 預警中心 */
-        .news-container { margin-top: 8px; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 120px; }
-        .news-card { background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border); border-left: 4px solid var(--warning); border-radius: 8px; padding: 10px; font-size: 11.5px; }
+        /* ====== 左下角市場預警中心樣式 ====== */
+        .alert-panel {
+            margin-top: 20px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 12px;
+            padding: 12px;
+            transition: all 0.3s ease-in-out;
+        }
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .alert-title { font-size: 12.5px; font-weight: 700; color: var(--warning); display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .toggle-alert-btn { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 12px; padding: 2px 6px; border-radius: 4px; transition: all 0.2s; }
+        .toggle-alert-btn:hover { color: #fff; background: rgba(255,255,255,0.05); }
+        
+        .news-wrapper { 
+            max-height: 180px; 
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            transition: max-height 0.3s ease-in-out, opacity 0.2s; 
+        }
+        .news-wrapper.collapsed { max-height: 0; opacity: 0; overflow: hidden; pointer-events: none; margin-top: 0; }
+        
+        .news-card { background: rgba(30, 41, 59, 0.4); border: 1px solid var(--border); border-left: 4px solid var(--warning); border-radius: 8px; padding: 10px; font-size: 11.5px; transition: all 0.2s; }
         .news-card.danger { border-left-color: var(--danger); }
-        .news-card h4 { font-size: 12.5px; color: #fff; margin: 2px 0; }
-        .news-card p { color: var(--text-dim); line-height: 1.4; }
+        .news-card.info { border-left-color: var(--purple); }
+        .news-card.highlight-news { border-color: var(--cyan) !important; box-shadow: 0 0 10px rgba(34, 211, 238, 0.3); background: rgba(34, 211, 238, 0.05); }
+        
+        .news-tag-row { display: flex; gap: 5px; margin-bottom: 4px; }
+        .news-badge { font-size: 9.5px; padding: 1px 5px; border-radius: 4px; font-weight: bold; }
+        .news-card h4 { font-size: 12.5px; color: #fff; margin: 2px 0; font-weight: bold; }
+        .news-card p { color: var(--text-dim); line-height: 1.4; text-align: justify; }
 
         /* 三表結構樣式 */
         .table-wrapper { margin-bottom: 20px; }
@@ -129,7 +170,6 @@
         .delta-tag { font-size: 10.5px; margin-left: 4px; padding: 1px 3px; border-radius: 4px; }
         .delta-up { color: var(--emerald); }
         .delta-down { color: var(--danger); }
-        .delta-stable { color: var(--text-dim); }
 
         /* 法說會問答專屬樣式 */
         .earning-call-section { background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 10px; padding: 12px; margin-top: 5px; }
@@ -140,15 +180,28 @@
         .qa-answer { font-size: 12.5px; color: var(--text-main); line-height: 1.5; text-align: justify; padding-left: 18px; position: relative; }
         .qa-answer::before { content: "答："; position: absolute; left: 0; color: var(--emerald); font-weight: bold; }
 
-        /* 雷達圖 */
-        .radar-container { width: 200px; height: 200px; border: 1px dashed rgba(34, 211, 238, 0.2); border-radius: 50%; margin: 25px auto; position: relative; }
+        /* 五星雷達圖與 Tooltip */
+        .radar-container { width: 220px; height: 220px; border: 1px dashed rgba(34, 211, 238, 0.2); border-radius: 50%; margin: 40px auto; position: relative; }
         .radar-poly { position: absolute; width: 100%; height: 100%; background: rgba(34, 211, 238, 0.15); border: 2px solid var(--cyan); transition: all 0.5s ease; filter: drop-shadow(0 0 6px var(--cyan)); }
-        .radar-lbl { position: absolute; font-size: 11px; color: var(--cyan); cursor: help; border-bottom: 1px dashed rgba(34, 211, 238, 0.4); padding: 1px 3px; border-radius: 4px; }
         
-        .radar-lbl .tooltip { visibility: hidden; width: 270px; background-color: #0f172a; color: #f8fafc; text-align: left; border: 1px solid var(--cyan); border-radius: 8px; padding: 12px; position: absolute; z-index: 50; bottom: 130%; left: 50%; transform: translateX(-50%); box-shadow: 0 10px 25px rgba(0,0,0,0.8); opacity: 0; transition: opacity 0.3s; font-size: 12px; line-height: 1.5; pointer-events: none; }
-        .radar-lbl:hover .tooltip { visibility: visible; opacity: 1; }
+        .radar-lbl { position: absolute; font-size: 13px; color: var(--cyan); cursor: pointer; border: 1px solid rgba(34, 211, 238, 0.3); background: rgba(15, 23, 42, 0.85); padding: 4px 8px; border-radius: 6px; font-weight: 600; white-space: nowrap; transition: all 0.2s; }
+        .radar-lbl:hover { border-color: var(--cyan); box-shadow: 0 0 10px rgba(34, 211, 238, 0.4); color: #fff; }
+        
+        .radar-lbl .tooltip { visibility: hidden; width: 320px; background-color: #0b1329; color: #f8fafc; text-align: left; border: 1.5px solid var(--cyan); border-radius: 10px; padding: 14px; position: absolute; z-index: 100; box-shadow: 0 15px 35px rgba(0,0,0,0.9); opacity: 0; transition: opacity 0.25s, transform 0.25s; font-size: 12px; line-height: 1.6; pointer-events: none; transform: scale(0.95); }
+        .radar-lbl:hover .tooltip { visibility: visible; opacity: 1; transform: scale(1); }
 
-        .tt-title { color: var(--cyan); font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 3px; margin-bottom: 5px; font-size: 12.5px; display: flex; justify-content: space-between; }
+        #lbl-f1 .tooltip { bottom: 130%; left: 50%; transform: translateX(-50%) scale(0.95); }
+        #lbl-f1:hover .tooltip { transform: translateX(-50%) scale(1); }
+        #lbl-f2 .tooltip { top: -20px; right: 125%; }
+        #lbl-f3 .tooltip { bottom: 125%; right: 0; }
+        #lbl-f4 .tooltip { bottom: 125%; left: 0; }
+        #lbl-f5 .tooltip { top: -20px; left: 125%; }
+
+        .tt-header { font-size: 13.5px; color: var(--cyan); font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 6px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .tt-row { display: flex; margin-bottom: 5px; }
+        .tt-label { width: 75px; color: var(--text-dim); font-weight: bold; flex-shrink: 0; }
+        .tt-value { color: #f8fafc; flex-grow: 1; }
+        .tt-highlight { color: var(--warning); font-weight: bold; }
 
         .strategy-box { background: rgba(34, 211, 238, 0.05); border-left: 4px solid var(--cyan); padding: 12px; border-radius: 4px; margin-top: 10px; font-size: 12.5px; line-height: 1.5; }
         .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
@@ -164,54 +217,64 @@
 </head>
 <body>
 
+    <!-- 左側導覽列 -->
     <div class="sidebar">
-        <div class="logo-area">
-            <i class="fa-solid fa-earth-asia"></i>
-            <div>
-                <h1>AI-SOURCING INTEL</h1>
-                <p style="font-size: 10px; color: var(--text-dim);">全球地緣財務穿透門戶 v5.0</p>
+        <!-- 上半部控制群組 -->
+        <div class="sidebar-top-group">
+            <div class="logo-area">
+                <i class="fa-solid fa-earth-asia"></i>
+                <div>
+                    <h1>AI-SOURCING INTEL</h1>
+                    <p style="font-size: 10px; color: var(--text-dim);">全球地緣財務穿透門戶 v8.0</p>
+                </div>
             </div>
+
+            <div class="search-box-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-input" id="portal-search" placeholder="搜尋廠商名稱 (如 ASML, Lam)..." oninput="handleSearch()">
+            </div>
+
+            <h3 class="menu-label">歐美日一線巨頭 (高毛利/先進製程)</h3>
+            <ul class="vendor-list" style="margin-bottom: 8px;">
+                <li><button class="vendor-btn active" id="btn-asml" onclick="switchVendor('asml')"><span>ASML (微影曝光機)</span><span class="score-tag badge-safe">F: 91</span></button></li>
+                <li><button class="vendor-btn" id="btn-lrcx" onclick="switchVendor('lrcx')"><span>Lam Research (高階蝕刻)</span><span class="score-tag badge-warn">F: 81</span></button></li>
+                <li><button class="vendor-btn" id="btn-tel" onclick="switchVendor('tel')"><span>TEL (塗佈顯影機)</span><span class="score-tag badge-warn">F: 84</span></button></li>
+            </ul>
+
+            <h3 class="menu-label">中國本土替代陣營 (高 YoY 增速)</h3>
+            <ul class="vendor-list">
+                <li><button class="vendor-btn" id="btn-naura" onclick="switchVendor('naura')"><span>北方華創 (平台型巨頭)</span><span class="score-tag badge-safe">F: 94</span></button></li>
+                <li><button class="vendor-btn" id="btn-pmis" onclick="switchVendor('pmis')"><span>上海精測 (前道量檢測突破)</span><span class="score-tag badge-warn">F: 87</span></button></li>
+                <li><button class="vendor-btn" id="btn-sjs" onclick="switchVendor('sjs')"><span>盛吉盛 (設備翻新改造)</span><span class="score-tag badge-warn">F: 81</span></button></li>
+            </ul>
         </div>
 
-        <div class="search-box-container">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="search-input" id="portal-search" placeholder="輸入廠商名稱 (如 上海精測, 盛吉盛, ASML)..." oninput="handleSearch()">
-        </div>
-
-        <h3 class="menu-label">歐美日一線巨頭 (高毛利/先進製程)</h3>
-        <ul class="vendor-list" style="margin-bottom: 8px;">
-            <li><button class="vendor-btn" id="btn-disco" onclick="switchVendor('disco')"><span>Disco (精密切磨龍頭)</span><span class="score-tag badge-safe">F: 96</span></button></li>
-            <li><button class="vendor-btn" id="btn-kla" onclick="switchVendor('kla')"><span>KLA (檢測龍頭)</span><span class="score-tag badge-safe">F: 93</span></button></li>
-            <li><button class="vendor-btn active" id="btn-asml" onclick="switchVendor('asml')"><span>ASML (微影曝光機)</span><span class="score-tag badge-safe">F: 91</span></button></li>
-            <li><button class="vendor-btn" id="btn-amat" onclick="switchVendor('amat')"><span>AMAT (薄膜沉積)</span><span class="score-tag badge-warn">F: 86</span></button></li>
-            <li><button class="vendor-btn" id="btn-tel" onclick="switchVendor('tel')"><span>TEL (塗佈顯影機)</span><span class="score-tag badge-warn">F: 84</span></button></li>
-            <li><button class="vendor-btn" id="btn-evg" onclick="switchVendor('evg')"><span>EVG (先進鍵合機)</span><span class="score-tag badge-warn">F: 82</span></button></li>
-            <li><button class="vendor-btn" id="btn-lrcx" onclick="switchVendor('lrcx')"><span>LAM (高階蝕刻)</span><span class="score-tag badge-danger">F: 78</span></button></li>
-        </ul>
-
-        <h3 class="menu-label">中國本土替代陣營 (高 YoY 增速 / 擴產主力)</h3>
-        <ul class="vendor-list">
-            <li><button class="vendor-btn" id="btn-naura" onclick="switchVendor('naura')"><span>北方華創 (ICP蝕刻/熱處理)</span><span class="score-tag badge-safe">F: 94</span></button></li>
-            <li><button class="vendor-btn" id="btn-amec" onclick="switchVendor('amec')"><span>中微半導體 (CCP高階蝕刻)</span><span class="score-tag badge-safe">F: 92</span></button></li>
-            <li><button class="vendor-btn" id="btn-pmis" onclick="switchVendor('pmis')"><span>上海精測 (前道量檢測突破)</span><span class="score-tag badge-warn">F: 87</span></button></li>
-            <li><button class="vendor-btn" id="btn-zse" onclick="switchVendor('zse')"><span>智程半導體 (高階濕法清洗)</span><span class="score-tag badge-warn">F: 85</span></button></li>
-            <li><button class="vendor-btn" id="btn-sjs" onclick="switchVendor('sjs')"><span>盛吉盛 (薄膜沉積/設備翻新)</span><span class="score-tag badge-warn">F: 81</span></button></li>
-        </ul>
-
-        <h3 class="menu-label"><span><i class="fa-solid fa-triangle-exclamation" style="color:var(--warning)"></i> 供應鏈地緣變局預警</span></h3>
-        <div class="news-container">
-            <div class="news-card danger">
-                <h4>上海精測 OCD / 膜厚設備進展超預期</h4>
-                <p>明場缺陷檢測突破 28nm 產線驗證，國產量測替代迎來拐點。<b>採購提示：</b>可用於平衡美系 KLA 報價壓力。</p>
+        <!-- 左下角：市場資訊預警中心 (支援展開/折疊功能) -->
+        <div class="alert-panel">
+            <div class="alert-header" onclick="toggleAlertCenter()">
+                <div class="alert-title">
+                    <i class="fa-solid fa-bell-ring fa-bounce" style="color:var(--warning)"></i>
+                    <span>市場資訊預警中心</span>
+                </div>
+                <button class="toggle-alert-btn" id="alert-toggle-icon">
+                    <i class="fa-solid fa-chevron-down"></i> 隱藏
+                </button>
+            </div>
+            
+            <div class="news-wrapper" id="alert-news-container">
+                <!-- 預警動態新聞由 JS 驅動與聯動 -->
             </div>
         </div>
     </div>
 
+    <!-- 右側主要工作區 -->
     <div class="main-content">
         
+        <!-- 左半部：三大戰略表格 -->
         <div class="glass-panel" style="display: flex; flex-direction: column; justify-content: flex-start; gap: 12px;">
             <div class="section-title" style="font-size:15px; font-weight:bold;"><i class="fa-solid fa-shield-halved" style="color:var(--cyan)"></i> 供應商全球財報穿透與法說會意見中控台</div>
             
+            <!-- 表一：核心財務三表 -->
             <div class="table-wrapper">
                 <div class="sub-table-title"><i class="fa-solid fa-file-invoice-dollar"></i> 表一：核心營運財務三表指標 (YoY / QoQ 交叉檢視)</div>
                 <table class="health-table">
@@ -225,10 +288,12 @@
                         </tr>
                     </thead>
                     <tbody id="table-body-finance">
-                        </tbody>
+                        <!-- JS 動態更新 -->
+                    </tbody>
                 </table>
             </div>
 
+            <!-- 表二：採購實務營運與產能監測 -->
             <div class="table-wrapper">
                 <div class="sub-table-title"><i class="fa-solid fa-boxes-packing"></i> 表二：供應商排產交期與產能稼動監測 (Capacity Loading)</div>
                 <table class="health-table">
@@ -242,29 +307,54 @@
                         </tr>
                     </thead>
                     <tbody id="table-body-sourcing">
-                        </tbody>
+                        <!-- JS 動態更新 -->
+                    </tbody>
                 </table>
             </div>
 
+            <!-- 表三：Earnings Call 核心問答焦點 -->
             <div class="table-wrapper" style="margin-bottom: 0;">
                 <div class="sub-table-title"><i class="fa-solid fa-comments-dollar" style="color:var(--purple);"></i> 表三：最新 Earnings Call / 戰略股東會 核心問答焦點摘要</div>
                 <div class="earning-call-section" id="table-body-earnings">
-                    </div>
+                    <!-- JS 動態更新 -->
+                </div>
             </div>
         </div>
 
+        <!-- 右半部：動態 360° 五星雷達圖面板 -->
         <div class="glass-panel" id="detail-panel">
-            <div class="section-title" style="font-size:14px;"><i class="fa-solid fa-crosshairs" style="color:var(--cyan);"></i> 360° 供應商財務護城河穿透</div>
+            <div class="section-title" style="font-size:14px;"><i class="fa-solid fa-crosshairs" style="color:var(--cyan);"></i> 360° 供應商採購綜合防禦雷達</div>
             
             <h2 id="panel-vendor-name" style="font-size: 22px; margin-bottom: 3px; color: #fff;">ASML (微影曝光機)</h2>
             
+            <!-- 五角星雷達定位 -->
             <div class="radar-container">
                 <div class="radar-poly" id="radar-shape"></div>
-                <div class="radar-lbl" style="top:-25px; left:36%;" id="lbl-f1">營收增長動能<span class="tooltip" id="tt-f1"></span></div>
-                <div class="radar-lbl" style="top:40%; right:-40px;" id="lbl-f2">毛利結構防線<span class="tooltip" id="tt-f2"></span></div>
-                <div class="radar-lbl" style="bottom:-20px; right:10%;" id="lbl-f3">現金流充沛度<span class="tooltip" id="tt-f3"></span></div>
-                <div class="radar-lbl" style="bottom:-20px; left:10%;" id="lbl-f4">資產回報率(ROA)<span class="tooltip" id="tt-f4"></span></div>
-                <div class="radar-lbl" style="top:40%; left:-40px;" id="lbl-f5">營運降價彈性<span class="tooltip" id="tt-f5"></span></div>
+                
+                <div class="radar-lbl" style="top:-30px; left:50%; transform:translateX(-50%);" id="lbl-f1">
+                    財務健全 <i class="fa-solid fa-calculator"></i>
+                    <span class="tooltip" id="tt-f1"></span>
+                </div>
+                
+                <div class="radar-lbl" style="top:32%; right:-40px;" id="lbl-f2">
+                    技術獨佔 <i class="fa-solid fa-crown"></i>
+                    <span class="tooltip" id="tt-f2"></span>
+                </div>
+                
+                <div class="radar-lbl" style="bottom:-25px; right:-10px;" id="lbl-f3">
+                    服務能量 <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <span class="tooltip" id="tt-f3"></span>
+                </div>
+                
+                <div class="radar-lbl" style="bottom:-25px; left:-10px;" id="lbl-f4">
+                    價格競爭 <i class="fa-solid fa-tags"></i>
+                    <span class="tooltip" id="tt-f4"></span>
+                </div>
+                
+                <div class="radar-lbl" style="top:32%; left:-40px;" id="lbl-f5">
+                    產能彈性 <i class="fa-solid fa-industry"></i>
+                    <span class="tooltip" id="tt-f5"></span>
+                </div>
             </div>
 
             <div class="metric-grid">
@@ -283,108 +373,139 @@
         </div>
     </div>
 
+    <!-- JavaScript 資料庫、連動與顯示/隱藏控制器 -->
     <script>
+        // 新聞資料庫 (動態關聯各廠商)
+        const industryNews = [
+            { id: "n1", target: "asml", type: "政策禁令", level: "danger", title: "荷蘭擬全面擴大先進 DUV 售後維保禁令", desc: "傳限制措施將延伸至部分已裝機 Twinscan 浸潤式設備，ASML 官方表示正密切評估對亞洲區服務據點與合約利潤之衝擊。" },
+            { id: "n2", target: "lrcx", type: "市場併購", level: "info", title: "Lam Research 傳正秘密洽談收購某先進 ALD 原料供應商", desc: "此戰略併購旨在全面防禦 ASM International 在高深寬比原子層沉積（ALD）市場的威脅，強化 SILPE 產品組合線。" },
+            { id: "n3", target: "naura", type: "政策禁令", level: "danger", title: "非美市場出口管制白名單再度收緊", desc: "北方華創在手成熟製程訂單大爆滿，國內晶圓廠為防範零組件斷鍊風暴，紛紛加開 2-3 倍備件庫存。" },
+            { id: "n4", target: "tel", type: "產能風險", level: "warning", title: "九州晶圓廠大擴建，引發日本本土化學流體精密組件產能排擠", desc: "TEL 塗佈顯影機（Track）部分特殊噴嘴交付時程傳出局部雜音，採購需留意下半年裝機排程調配。" },
+            { id: "n5", target: "pmis", type: "市場併購", level: "info", title: "前道量測市場割喉戰：本土大廠積極啟動子公司整合", desc: "上海精測獲新一輪戰術資金挹注，全面加速 28nm 明場缺陷檢測光學算法專利併購以對抗 KLA 封鎖。" }
+        ];
+
         const vendorDatabase = {
             asml: {
                 id: "asml", name: "ASML (微影曝光機)", m1: "EUV 系統毛利支撐效益", m2: "地緣政治導致 DUV 營收衰退風險",
-                revenue: "€27.6 B <span class='delta-tag delta-up'>YoY +12.3%</span><br><span class='delta-tag delta-down'>QoQ -1.5%</span>",
-                profit: "€7.4 B <span class='delta-tag delta-up'>YoY +9.5%</span>", gm: "51.4% <span class='delta-tag delta-down'>QoQ -0.6%</span>", fcf: "€5.8 B",
-                leadTime: "14 - 16 個月", trend: "<span class='delta-up'><i class='fa-solid fa-arrow-trend-up'></i> 延長</span>", fxRisk: "低 (歐元結算)", 
-                loadingRate: "<span style='color:var(--danger); font-weight:bold;'>90% (產能受限)</span>",
-                strategy: "ASML 擁有絕對的微影壟斷利潤，長線在手訂單排隊已排到 2027。雖然短線 DUV 出口受到限制造成局部波動，但議價空間幾近於零。採購戰略：鎖定裝機排程，並爭取將 Litho InSight 軟體搭售費用轉嫁為免費授權。",
-                clip: "polygon(50% 10%, 92% 30%, 80% 80%, 30% 75%, 20% 40%)",
-                tt_finance: "<div class='tt-title'><span>營收增長動能</span></div>• 先進 EUV 訂單強勁，但成熟製程 DUV 出口限制帶來局部修正。",
-                tt_tech: "<div class='tt-title'><span>毛利結構防線</span></div>• 毛利率維持在 51.4% 高位，壟斷型定價權難以撼動。",
-                tt_capacity: "<div class='tt-title'><span>現金流充沛度</span></div>• FCF 高達 €5.8 B，手握充足研發子彈與極強防禦能力。",
-                tt_price: "<div class='tt-title'><span>資產回報率 (ROA)</span></div>• ROA 穩定在 13.8%，資本利潤率極其優越。",
-                tt_service: "<div class='tt-title'><span>營運降價彈性</span></div>• 降價意願極低。產能 Loading 90% 且面臨蔡司光學鏡頭供應限制。",
-                earnings: [
-                    { topic: "地緣政治管制對 DUV 出口的實質影響", q: "投資人詢問擴大出口禁令是否會導致下半年成熟製程 DUV 營收失速？", a: "管理層回覆：雖然局部非美市場出貨受阻，但歐美日先進節點代工廠對 Twinscan 浸潤式系統的增量需求足以全面遞補，大盤不受實質重創。" },
-                    { topic: "High-NA EUV 裝機與毛利拉動時程", q: "大客戶對下一代 0.55 NA 設備的採購意願與毛利稀釋效應？", a: "管理層回覆：首批機台折舊成本較高，短期會微幅稀釋毛利 0.5%，但隨著 2027 年進入規模量產，將推動公司整體毛利率衝向 54% 的歷史新高。" }
-                ]
+                revenue: "€27.6 B <span class='delta-tag delta-up'>YoY +12.3%</span>", profit: "€7.4 B", gm: "51.4%", fcf: "€5.8 B", leadTime: "14 - 16 個月", trend: "<span class='delta-up'>延長</span>", fxRisk: "低 (歐元結算)", loadingRate: "90%",
+                strategy: "ASML 在先進製程屬絕對壟斷。採購策略應著重在鎖定裝機與蔡司鏡頭排程。商務上硬體折讓難度極高，可全力爭取將 Litho InSight 良率軟體授權或長期駐廠 SLA 維保費用進行包裹打折。",
+                clip: "polygon(50% 10%, 95% 35%, 85% 75%, 20% 85%, 25% 45%)",
+                tt_f1: `<div class='tt-header'><i class='fa-solid fa-money-check-dollar'></i> 核心財務監測</div><div class='tt-row'><span class='tt-label'>季度營收:</span><span class='tt-value'>€27.6 B</span></div><div class='tt-row'><span class='tt-label'>毛利率:</span><span class='tt-value tt-highlight'>51.4%</span></div><div class='tt-row'><span class='tt-label'>YoY 增速:</span><span class='tt-value' style='color:var(--emerald)'>+12.3%</span></div>`,
+                tt_f2: `<div class='tt-header'><i class='fa-solid fa-microchip'></i> 技術獨佔防禦</div><div class='tt-row'><span class='tt-label'>獨佔核心:</span><span class='tt-value'>0.33 & 0.55 High-NA EUV 全球獨家供應</span></div>`,
+                tt_f3: `<div class='tt-header'><i class='fa-solid fa-users-gear'></i> 全球現場服務能量</div><div class='tt-row'><span class='tt-label'>機台Service:</span><span class='tt-value'>提供 24/7 全天候黃光區駐廠工程支援</span></div><div class='tt-row'><span class='tt-label'>分布據點:</span><span class='tt-value tt-highlight'>林口/新竹/台中/台南技術支援中心</span></div>`,
+                tt_f4: `<div class='tt-header'><i class='fa-solid fa-code-compare'></i> 地緣價格競爭與對手 Model</div><div class='tt-row'><span class='tt-label'>主要競爭者:</span><span class='tt-value'>Nikon, Canon (僅限於成熟 DUV)</span></div><div class='tt-row'><span class='tt-label'>對手Model:</span><span class='tt-value tt-highlight'>Nikon NSR-S636E, Canon FPA-6300ES6</span></div>`,
+                tt_f5: `<div class='tt-header'><i class='fa-solid fa-warehouse'></i> 製造工廠多元性與產能</div><div class='tt-row'><span class='tt-label'>製造工廠:</span><span class='tt-value'>荷蘭 Veldhoven、美國康乃狄克州、台灣</span></div><div class='tt-row'><span class='tt-label'>目前產能:</span><span class='tt-value tt-highlight'>EUV 年產約 45-50 台，DUV 約 300 台</span></div>`,
+                earnings: [{ topic: "成熟製程 DUV 禁令遞補效應", q: "擴大禁令是否重創下半年營收？", a: "歐美日先進節點大廠對 Twinscan 浸潤式系統增量需求足以全面遞補非美市場缺口。" }]
             },
-            pmis: {
-                id: "pmis", name: "上海精測 (前道量檢測突破)", m1: "OCD 與膜厚量測產品在 28nm 線的市佔", m2: "高端明場光學零部件高度依賴美日進口",
-                revenue: "¥16.2 億 <span class='delta-tag delta-up'>YoY +29.5%</span><br><span class='delta-tag delta-up'>QoQ +6.8%</span>",
-                profit: "¥2.1 億 <span class='delta-tag delta-up'>YoY +32.1%</span>", gm: "46.5% <span class='delta-tag delta-up'>QoQ +0.5%</span>", fcf: "¥1.5 億",
-                leadTime: "6 - 8 個月", trend: "<span class='delta-stable'><i class='fa-solid fa-minus'></i> 持平</span>", fxRisk: "低 (母公司資金調配保障)", 
-                loadingRate: "<span style='color:var(--warning); font-weight:bold;'>85% (高位運作)</span>",
-                strategy: "上海精測作為前道量測領域的國產主力，其 OCD (光學關鍵尺寸) 與膜厚量測系統技術進展顯著。毛利率 46.5% 表明其高毛利光學設備開始釋放規模效應。**採購策略**：在成熟晶圓廠建線中，上海精測的設備成本比 KLA 低 35% 以上，將其引入前道非關鍵量測站，逼迫 KLA 調降主線維保與升級費用。",
-                clip: "polygon(50% 18%, 82% 38%, 78% 70%, 45% 65%, 28% 42%)",
-                tt_finance: "<div class='tt-title'><span>營收增長動能</span></div>• 營收受惠於 28nm 及以上國產良率管控設備採購剛需，YoY 成長近三成。",
-                tt_tech: "<div class='tt-title'><span>毛利結構防線</span></div>• 毛利率 46.5% 表現健康，但高階明場光學光源與特種鏡頭進口溢價仍擠壓部分利潤空間。",
-                tt_capacity: "<div class='tt-title'><span>現金流充沛度</span></div>• FCF 穩定（1.5億），母公司精測電子（300567.SZ）提供強大的集團資金與 ATE 資源背書。",
-                tt_price: "<div class='tt-title'><span>資產回報率 (ROA)</span></div>• ROA 為 8.7%，隨著多個 Fab 廠重複訂單增加，產線折舊效益正在轉正。",
-                tt_service: "<div class='tt-title'><span>營運降價彈性</span></div>• **較高**。為了在已被 KLA、日立高度壟斷的量檢測市場破局，極願意提供客製化算法開發與商務讓利。",
-                earnings: [
-                    { topic: "28nm 明場缺陷檢測設備驗證進度", q: "投資人關注最新款明場光學缺陷檢測設備在國內晶圓代工龍頭的驗證反饋？", a: "管理層回覆：該設備已在客戶 28nm 生產線上穩定運行超半年，關鍵指標符合預期，已取得部分重複訂單。下一步將向更先進的節點形貌量測進軍。" },
-                    { topic: "核心光學零部件供應安全防線", q: "美國擴大量測設備管制後，公司高端雷射光源與偏振組件如何去美化？", a: "管理層回覆：公司已與國內一線光學研究所及歐洲非管制區域供應商建立聯合研發體系，現有出貨型號的供應鏈成熟度能確保未來兩年交付不受干擾。" }
-                ]
+            lrcx: {
+                id: "lrcx", name: "Lam Research (高階蝕刻)", m1: "HAR高深寬比蝕刻獨佔率", m2: "記憶體大廠資本支出修正波及",
+                revenue: "$14.3 B <span class='delta-tag delta-down'>YoY -4.2%</span>", profit: "$3.8 B", gm: "45.8%", fcf: "$3.1 B", leadTime: "10 - 12 個月", trend: "<span class='delta-stable'>持平</span>", fxRisk: "低 (美金結算)", loadingRate: "72%",
+                strategy: "Lam Research 在 3D NAND 高深寬比（HAR）蝕刻具極高壟斷性。近期因記憶體拉貨走緩，其工廠產能稼動率下滑至 72%，此時正是採購對其發動機台組合綑綁（Bundling）談判的大好時機！",
+                clip: "polygon(50% 20%, 85% 35%, 70% 65%, 40% 75%, 35% 35%)",
+                tt_f1: `<div class='tt-header'><i class='fa-solid fa-money-check-dollar'></i> 核心財務監測</div><div class='tt-row'><span class='tt-label'>毛利率:</span><span class='tt-value tt-highlight'>45.8%</span></div>`,
+                tt_f2: `<div class='tt-header'><i class='fa-solid fa-microchip'></i> 技術獨佔防禦</div><div class='tt-row'><span class='tt-label'>獨佔核心:</span><span class='tt-value'>3D NAND 120比高深寬比接觸孔蝕刻壟斷</span></div>`,
+                tt_f3: `<div class='tt-header'><i class='fa-solid fa-users-gear'></i> 全球現場服務能量</div><div class='tt-row'><span class='tt-label'>分布據點:</span><span class='tt-value tt-highlight'>新竹、台中、台南、韓國平澤、美國奧勒岡</span></div>`,
+                tt_f4: `<div class='tt-header'><i class='fa-solid fa-code-compare'></i> SILPE 與前道蝕刻競爭者 Model</div><div class='tt-row'><span class='tt-label'>主要競爭者:</span><span class='tt-value'>AMAT, ASM International, 東京電子(TEL)</span></div><div class='tt-row'><span class='tt-label'>對手Model:</span><span class='tt-value tt-highlight'>AMAT Producer, ASM XP8, TEL Tactras</span></div>`,
+                tt_f5: `<div class='tt-header'><i class='fa-solid fa-warehouse'></i> 製造工廠多元性與產能</div><div class='tt-row'><span class='tt-label'>製造工廠:</span><span class='tt-value'>美國奧勒岡、馬來西亞檳城新廠、奧地利</span></div>`,
+                earnings: [{ topic: "大馬廠降本與殺價空間", q: "如何應對記憶體客戶砍價？", a: "透過將生產線移往馬來西亞檳城以降低基礎成本，將給予戰略客戶更有彈性的商務方案。" }]
             },
-            sjs: {
-                id: "sjs", name: "盛吉盛 (薄膜沉積/設備翻新)", m1: "PECVD 國產機台出貨增量", m2: "翻新二手原廠核心配件地緣斷供",
-                revenue: "¥12.8 億 <span class='delta-tag delta-up'>YoY +18.2%</span><br><span class='delta-tag delta-stable'>QoQ +1.2%</span>",
-                profit: "¥1.1 億 <span class='delta-tag delta-up'>YoY +15.5%</span>", gm: "34.2% <span class='delta-tag delta-down'>QoQ -1.1%</span>", fcf: "¥0.6 億 (部分沉澱於庫存)",
-                leadTime: "5 - 7 個月", trend: "<span class='delta-down'><i class='fa-solid fa-arrow-trend-down'></i> 縮短</span>", fxRisk: "中 (翻新機台涉及海外零部件採購)", 
-                loadingRate: "<span style='color:var(--emerald); font-weight:bold;'>80% (產能充裕)</span>",
-                strategy: "盛吉盛為非上市企業，核心優勢在於成熟期國際巨頭（AMAT/LAM/TEL）設備的翻新、升級與 PECVD 薄膜沉積。由於二手市場核心配件搶購激烈，毛利率（34.2%）略微承壓。**採購策略**：盛吉盛是維繫擴產成熟產線「性價比」的護城河。建議將其定位為「零部件國產替代與舊機改造」首選，在非核心薄膜製程大幅套用其方案，降低對 AMAT 原廠高昂維保的依賴。",
-                clip: "polygon(50% 30%, 75% 50%, 65% 72%, 40% 60%, 32% 48%)",
-                tt_finance: "<div class='tt-title'><span>營收增長動能</span></div>• 營收規模約 12.8 億。由於國內 Fab 積極尋求舊產線去美化升級，翻新與零部件改造業務需求穩健。",
-                tt_tech: "<div class='tt-title'><span>毛利結構防線</span></div>• 毛利率 34.2% 偏低，主因是翻新機業務依賴海外二手通路拆解，以及國產自研 PECVD 還在市佔拉升期。",
-                tt_capacity: "<div class='tt-title'><span>現金流充沛度</span></div>• FCF 為 0.6 億，因需要大量預囤海外大廠（如 AMAT）舊機台與核心零部件作備件，庫存周轉佔用資金較多。",
-                tt_price: "<div class='tt-title'><span>資產回報率 (ROA)</span></div>• ROA 推估在 6.8% 左右，作為國家專精特新『小巨人』，享有高額政府研發補貼。",
-                tt_service: "<div class='tt-title'><span>營運降價彈性</span></div>• **極高**。其核心商業模式即為客戶追求 Cost Down。其自研設備與翻新工程價格比原廠新機低 40% 以上。",
-                earnings: [
-                    { topic: "自研 PECVD 設備技術指標與客戶覆蓋", q: "股東會與戰術戰略會詢問：公司自研薄膜沉積設備在化合物半導體與功率器件的進展？", a: "官方戰略披露：公司的 PECVD 設備已在國內數家 6 吋/8 吋 SiC 與 IGBA 先導線上實現統包交付，厚膜沉積均勻性已達到國際一線廠商同等水平。" },
-                    { topic: "海外二手機台維保與零部件本土化突破", q: "大客戶擔心原廠若全面停止對二手舊設備提供配件，盛吉盛的履約能力如何？", a: "官方戰略披露：公司已建立全亞洲最大的舊機零部件拆解與翻新數據庫，且超過 70% 的常用真空泵、閥門、射頻匹配器已實現本土自修與替代製造，不懼原廠斷供風險。" }
-                ]
+            tel: {
+                id: "tel", name: "Tokyo Electron (TEL)", m1: "Track 塗佈顯影機絕對市佔", m2: "日圓大幅波動導致利潤稀釋風險",
+                revenue: "¥2.1 兆 <span class='delta-tag delta-up'>YoY +15.2%</span>", profit: "¥5,800 億", gm: "43.1%", fcf: "¥4,600 億", leadTime: "8 - 10 個月", trend: "<span class='delta-down'>縮短</span>", fxRisk: "高 (日圓波動)", loadingRate: "78%",
+                strategy: "TEL 在 Clean Track 領域是唯一與 ASML EUV 聯合開發並綑綁銷售的巨頭。採購應善用目前其工廠 Loading 僅 78% 的空間，積極爭取整線採購的商務讓利。",
+                clip: "polygon(50% 15%, 82% 40%, 78% 70%, 40% 70%, 50% 30%)",
+                tt_f1: `<div class='tt-header'>財務監測</div>`, tt_f2: `<div class='tt-header'>技術獨佔</div>`,
+                tt_f3: `<div class='tt-header'>現場服務</div><div class='tt-row'><span class='tt-label'>分布據點:</span><span class='tt-value tt-highlight'>日本山梨、新竹、台中、台南科工區</span></div>`,
+                tt_f4: `<div class='tt-header'>競爭者 Model</div><div class='tt-row'><span class='tt-label'>主要競爭者:</span><span class='tt-value'>SUSS MicroTec, 芯源微(Kingsemi), 北方華創</span></div><div class='tt-row'><span class='tt-label'>對手Model:</span><span class='tt-value tt-highlight'>芯源微 KS-EUV-T200, SUSS ACS300</span></div>`,
+                tt_f5: `<div class='tt-header'>製造產能</div><div class='tt-row'><span class='tt-label'>製造工廠:</span><span class='tt-value'>日本山梨總廠、合志總廠、宮城總廠</span></div>`,
+                earnings: [{ topic: "日圓大幅波動避險措施", q: "如何抵禦匯率劇烈波動？", a: "大中華區部分合約已嘗試切換為美元或人民幣計價，鎖定利潤。"}]
             },
             naura: {
-                id: "naura", name: "北方華創 (Naura)", m1: "中國國內晶圓廠裝機替代率", m2: "美方對核心關鍵零部件斷供風險",
-                revenue: "¥315 億 <span class='delta-tag delta-up'>YoY +35.4%</span><br><span class='delta-tag delta-up'>QoQ +8.2%</span>",
-                profit: "¥48.2 億 <span class='delta-tag delta-up'>YoY +42.1%</span>", gm: "43.8% <span class='delta-tag delta-up'>QoQ +1.5%</span>", fcf: "¥38.5 億",
-                leadTime: "6 - 8 個月", trend: "<span class='delta-up'><i class='fa-solid fa-arrow-trend-up'></i> 延長</span>", fxRisk: "低", 
-                loadingRate: "<span style='color:var(--danger); font-weight:bold;'>95% (極度滿載)</span>",
-                strategy: "北方華創受惠於中國本土成熟製程瘋狂擴產，營收 YoY 高達 35.4%，產能 Loading高達 95%。雖然其核心零部件仍有國產化拉鋸風險，但其議價態度因內需爆發而變得極強。採購作戰：將其視為成熟製程代工的殺價「標竿」，反向對美系 AMAT/LAM 施壓。",
-                clip: "polygon(50% 8%, 95% 38%, 88% 82%, 40% 60%, 35% 30%)",
-                tt_finance: "<div>營收動能強勁</div>", tt_tech: "<div>規模效益顯現</div>", tt_capacity: "<div>補貼資金充裕</div>", tt_price: "<div>資產效率極佳</div>", tt_service: "<div>排單過多不願降價</div>",
-                earnings: [
-                    { topic: "關鍵零組件國產化滲透率進度", q: "分析師質疑目前高階製程 ICP 蝕刻機中，美製射頻電源與氣體質量控制器的替代進度？", a: "管理層回覆：目前公司已建立核心零部件供應鏈備源，成熟製程設備零部件本土化率已達 90% 以上，完全具備獨立量產與交付能力。" }
-                ]
+                id: "naura", name: "北方華創 (平台型巨頭)", m1: "ICP蝕刻與熱處理國產市佔率", m2: "核心零部件去美化供應鏈鏈條斷裂風險",
+                revenue: "¥315 億 <span class='delta-tag delta-up'>YoY +35.4%</span>", profit: "¥48.2 億", gm: "43.8%", fcf: "¥38.5 億", leadTime: "6 - 8 個月", trend: "<span class='delta-up'>延長</span>", fxRisk: "低", loadingRate: "95%",
+                strategy: "受惠於擴產潮，在 ICP 蝕刻、PVD、清洗機市佔率急遽拉升。但也因為在手訂單爆滿、工廠 Loading高達 95%，其商務砍價讓利空間正在收窄。",
+                clip: "polygon(50% 12%, 85% 35%, 82% 70%, 50% 85%, 35% 55%)",
+                tt_f1: `<div class='tt-header'>核心財務</div>`, tt_f2: `<div class='tt-header'>技術獨佔</div>`,
+                tt_f3: `<div class='tt-header'>現場服務</div><div class='tt-row'><span class='tt-label'>分布據點:</span><span class='tt-value tt-highlight'>北京亦莊、上海、武漢、西安、合肥</span></div>`,
+                tt_f4: `<div class='tt-header'>對手 Model</div><div class='tt-row'><span class='tt-label'>主要競爭者:</span><span class='tt-value'>AMAT, Lam Research, 中微半導體(AMEC)</span></div><div class='tt-row'><span class='tt-label'>對手Model:</span><span class='tt-value tt-highlight'>AMAT Endura, Lam Kiyo, 中微 Primo</span></div>`,
+                tt_f5: `<div class='tt-header'>製造產能</div><div class='tt-row'><span class='tt-label'>製造工廠:</span><span class='tt-value'>北京亦莊第一/第二生產基地、平谷製造基地</span></div>`,
+                earnings: [{ topic: "零組件去美化替代率進度", q: "射頻電源國產替代進展如何？", a: "成熟製程設備的零部件本土化率已突破 90%，交付不受外部法規干擾。" }]
             },
-            amec: {
-                id: "amec", name: "中微半導體 (AMEC)", m1: "CCP介電質蝕刻高階市佔", m2: "專利訴訟引發的跨國供應鏈摩擦",
-                revenue: "¥72.6 億 <span class='delta-tag delta-up'>YoY +28.2%</span><br><span class='delta-tag delta-up'>QoQ +4.5%</span>",
-                profit: "¥12.4 億 <span class='delta-tag delta-up'>YoY +19.8%</span>", gm: "45.2% <span class='delta-tag delta-stable'>QoQ +0.1%</span>", fcf: "¥11.2 億",
-                leadTime: "7 - 9 個月", trend: "<span class='delta-stable'><i class='fa-solid fa-minus'></i> 持平</span>", fxRisk: "低", 
-                loadingRate: "<span style='color:var(--warning); font-weight:bold;'>88% (高位運作)</span>",
-                strategy: "中微在 CCP 蝕刻製程上極具實力。毛利率達 45.2% 表現極穩。投資人極度關注其與美商 Lam Research 的專利拉鋸。採購戰略：中微急於突破非中市場（如東南亞晶圓廠），是台灣與跨國採購爭取「首台驗證超低戰略價」的絕佳標的。",
-                clip: "polygon(50% 12%, 88% 35%, 80% 75%, 45% 65%, 25% 40%)",
-                tt_finance: "<div>高階蝕刻市佔高</div>", tt_tech: "<div>核心定價權穩健</div>", tt_capacity: "<div>具備墊資能力</div>", tt_price: "<div>研發回報轉正快</div>", tt_service: "<div>非中市場極具價格彈性</div>",
-                earnings: [
-                    { topic: "國際法規與專利訴訟防禦機制", q: "近期與海外大廠的智財權訴訟是否會阻礙公司高階 TSV 蝕刻機打入國際 HBM 供應鏈？", a: "管理層回覆：公司從創立之初就堅持全自主研發。訴訟屬於常態商業防守，不影響公司設備在東南亞與大中華區的正常裝機排產。" }
-                ]
+            pmis: {
+                id: "pmis", name: "上海精測 (前道量檢測突破)", m1: "OCD與膜厚量測在成熟線市佔", m2: "高端明場光學零部件高度依賴美日進口",
+                revenue: "¥16.2 億 <span class='delta-tag delta-up'>YoY +29.5%</span>", profit: "¥2.1 億", gm: "46.5%", fcf: "¥1.5 億", leadTime: "6 - 8 個月", trend: "<span class='delta-stable'>持平</span>", fxRisk: "低", loadingRate: "85%",
+                strategy: "在前道膜厚與 OCD 關鍵尺寸量測取得破局，報價低於美商 KLA 約 35%+。採購可將其作為 Second Source，以此反向逼迫 KLA 調降商務維保與合約報價。",
+                clip: "polygon(50% 25%, 72% 50%, 75% 65%, 85% 72%, 70% 35%)",
+                tt_f1: `<div class='tt-header'>財務監測</div>`, tt_f2: `<div class='tt-header'>技術突破</div>`,
+                tt_f3: `<div class='tt-header'>現場服務</div><div class='tt-row'><span class='tt-label'>分布據點:</span><span class='tt-value tt-highlight'>上海、武漢研發總部、無錫、蘇州</span></div>`,
+                tt_f4: `<div class='tt-header'>競爭者 Model</div><div class='tt-row'><span class='tt-label'>主要競爭者:</span><span class='tt-value'>KLA (科磊), Onto Innovation, 中科飛測</span></div><div class='tt-row'><span class='tt-label'>對手Model:</span><span class='tt-value tt-highlight'>KLA SpectraShape, Onto Atlas, 中科飛測 SPX</span></div>`,
+                tt_f5: `<div class='tt-header'>製造多元性</div><div class='tt-row'><span class='tt-label'>製造工廠:</span><span class='tt-value'>上海青浦前道製造基地、武漢精測光電產業園</span></div>`,
+                earnings: [{ topic: "明場缺陷檢測進度", q: "高端明場設備何時能規模化？", a: "28nm 明場光學缺陷檢測設備已在國內一線代工廠線運作超半年。"}]
             },
-            zse: {
-                id: "zse", name: "智程半導體 (ZSE)", m1: "高階單片清洗機本土化增速", m2: "高階化學品耐腐蝕閥件進口黏著度",
-                revenue: "¥18.4 億 <span class='delta-tag delta-up'>YoY +42.5%</span><br><span class='delta-tag delta-up'>QoQ +11.2%</span>",
-                profit: "¥2.6 億 <span class='delta-tag delta-up'>YoY +51.2%</span>", gm: "38.5% <span class='delta-tag delta-up'>QoQ +2.1%</span>", fcf: "¥1.8 億",
-                leadTime: "5 - 7 個月", trend: "<span class='delta-down'><i class='fa-solid fa-arrow-trend-down'></i> 縮短</span>", fxRisk: "中", 
-                loadingRate: "<span style='color:var(--warning); font-weight:bold;'>82% (產能擴張中)</span>",
-                strategy: "智程是清洗與濕法設備的黑馬，利潤爆發 YoY 高達 51.2%。其機台成本比日本大廠 DNS 或日系 TEL 低 30% 以上。建議將其引入作為 12 吋成熟製程產線的清洗設備主力，發動全面的供應鏈成本優化。",
-                clip: "polygon(50% 20%, 75% 45%, 70% 65%, 50% 60%, 30% 50%)",
-                tt_finance: "<div>規模小但增速極高</div>", tt_tech: "<div>閥件依賴進口</div>", tt_capacity: "<div>營運週轉需求高</div>", tt_price: "<div>產線利用率爬升中</div>", tt_service: "<div>極高讓利意願</div>",
-                earnings: [
-                    { topic: "上游核心部件本土化進度", q: "未來如何應對核心進口特殊耐腐蝕泵浦與閥件的成本上漲？", a: "管理層回覆：公司正與國內數家高分子材料研究所聯合驗證本土化高純度氟素閥門，預期兩年內降低進口依賴 30%。" }
-                ]
-            },
-            disco: { id: "disco", name: "Disco (精密晶圓切磨)", m1: "先進封裝耗材毛利拉動效益", m2: "日圓升值海外營收折算風險", revenue: "¥3,120 億 <span class='delta-tag delta-up'>YoY +18%</span>", profit: "¥890 億", gm: "62.1%", fcf: "¥710 億", leadTime: "8 - 10 個月", trend: "延長", fxRisk: "高", loadingRate: "94%", strategy: "毛利率 62.1% 與產能稼動 94% 皆為天花板級別。採購應放棄對機台本體砍價，全面轉向耗材包量談判。", clip: "polygon(50% 5%, 98% 25%, 90% 85%, 35% 75%, 20% 20%)", tt_finance: "<div>強</div>", tt_tech: "<div>強</div>", tt_capacity: "<div>緊</div>", tt_price: "<div>高</div>", tt_service: "<div>低</div>", earnings: [{ topic: "CoWoS 耗材乘數效應", q: "Taiko砂輪毛利是否高於傳統劃片刀？", a: "管理層回覆：先進封裝用砂輪客製化程度高、壽命短，隨稼動率攀升，耗材營收比重將持續擴大。" }] },
-            kla: { id: "kla", name: "KLA (良率缺陷檢測)", m1: "2nm 明場設備利潤佔比", m2: "客戶資本支出放緩衝擊", revenue: "$10.5 B <span class='delta-tag delta-up'>YoY +8.7%</span>", profit: "$3.1 B", gm: "59.2%", fcf: "$2.7 B", leadTime: "7 - 9 個月", trend: "持平", fxRisk: "低", loadingRate: "85%", strategy: "定價權極高，砍價極難。採購戰略應轉向談判其昂貴的缺陷分析軟體特許授權包（SLA）。", clip: "polygon(50% 10%, 95% 35%, 85% 85%, 30% 70%, 15% 35%)", tt_finance: "<div>穩</div>", tt_tech: "<div>強</div>", tt_capacity: "<div>穩</div>", tt_price: "<div>高</div>", tt_service: "<div>極深</div>", earnings: [{ topic: "電子束與光學明場互補", q: "電子束量測是否會壓縮 KLA 明場光學市場？", a: "管理層回覆：電子束適合研發驗證；量產線全面良率控管仍必須依賴 KLA 寬頻電漿光學檢測。" }] },
-            amat: { id: "amat", name: "Applied Materials (AMAT)", m1: "薄膜設備市佔防守", m2: "邏輯客戶資本支出放緩", revenue: "$26.5 B <span class='delta-tag delta-down'>QoQ -3.1%</span>", profit: "$7.2 B", gm: "47.2%", fcf: "$6.1 B", leadTime: "9 - 11 個月", trend: "縮短", fxRisk: "低", loadingRate: "76%", strategy: "工廠產能 Loading 降至 76% 的相對低水位。這是絕佳的議價窗口！對方背負季底塞單與填補產線壓力，可發動跨製程Bundling大刀殺價。", clip: "polygon(50% 25%, 85% 45%, 70% 70%, 40% 65%, 25% 35%)", tt_finance: "<div>修正</div>", tt_tech: "<div>穩</div>", tt_capacity: "<div>充裕</div>", tt_price: "<div>大</div>", tt_service: "<div>優</div>", earnings: [{ topic: "季度營收修正主因", q: "本季營收與毛利率出現雙重 QoQ 下滑原因？", a: "管理層回覆：主要是局部大客戶調整進機時程，部分高毛利設備遞延至下季確認營收所致。" }] },
-            tel: { id: "tel", name: "Tokyo Electron (TEL)", m1: "Track設備市佔", m2: "日圓波動風險", revenue: "¥2.1 兆", profit: "¥5,800 億", gm: "43.1%", fcf: "¥4,600 億", leadTime: "8 - 10 個月", trend: "縮短", fxRisk: "高", loadingRate: "78%", strategy: "工廠 Loading 78% 產能充裕。可利用日圓低檔發動遠期雙向鎖定，並藉由其新產線開出的填產能壓力索取 10% 折讓。", clip: "polygon(50% 20%, 80% 40%, 75% 70%, 30% 75%, 25% 35%)", tt_finance: "<div>穩</div>", tt_tech: "<div>強</div>", tt_capacity: "<div>佳</div>", tt_price: "<div>大</div>", tt_service: "<div>優</div>", earnings: [{ topic: "新廠折舊與產能填補", q: "如何平衡短期內固定資產折舊衝擊？", a: "管理層回覆：正透過加速亞洲客戶的 Track 設備裝機驗證來拉高產線稼動。" }] },
-            evg: { id: "evg", name: "EVG (先進鍵合)", m1: "3D鍵合精度", m2: "歐洲單一總部地緣風險", revenue: "€4.8 億", profit: "€1.1 億", gm: "49.5%", fcf: "€0.9 億", leadTime: "11 - 13 個月", trend: "延長", fxRisk: "中", loadingRate: "88%", strategy: "奧地利私有家族企業。產能 Loading 88% 排程緊湊。應採取前瞻製程共同開發合約，免除裝機費與首次驗證人力費。", clip: "polygon(50% 25%, 85% 35%, 75% 65%, 40% 70%, 25% 45%)", tt_finance: "<div>穩</div>", tt_tech: "<div>高</div>", tt_capacity: "<div>集中</div>", tt_price: "<div>中</div>", tt_service: "<div>普</div>", earnings: [{ topic: "資本支出規劃", q: "面對 3D Fusion Bonding 暴增需求之資本來源？", a: "管理層回覆：公司財務極其健康且零外債，全新奧地利製造大樓已全面投產。" }] },
-            lrcx: { id: "lrcx", name: "Lam Research (LAM)", m1: "CSBG售後利潤", m2: "記憶體去化波及", revenue: "$14.3 B <span class='delta-tag delta-down'>QoQ -5.5%</span>", profit: "$3.8 B", gm: "45.8%", fcf: "$3.1 B", leadTime: "10 - 12 個月", trend: "持平", fxRisk: "低", loadingRate: "72%", strategy: "財務陷入 78 分警戒區！產能 Loading 萎縮至 72%。這是採購的最強交叉點！現在是逼迫其在邏輯蝕刻設備讓利 15% 的黃金時機。", clip: "polygon(50% 35%, 70% 50%, 60% 80%, 35% 70%, 30% 55%)", tt_finance: "<div>警戒</div>", tt_tech: "<div>高</div>", tt_capacity: "<div>過剩</div>", tt_price: "<div>極大</div>", tt_service: "<div>佳</div>", earnings: [{ topic: "記憶體低迷下去庫存", q: "產能 Loading 跌至 72%，如何維持獲利？", a: "管理層回覆：正全面優化馬來西亞新廠本地化以降低成本，商務條件上給予策略型客戶更具吸引力的靈活方案。" }] }
+            sjs: {
+                id: "sjs", name: "盛吉盛 (設備翻新改造)", m1: "二手設備翻新與零部件自修率", m2: "國際原廠核心配件停止供應地緣風險",
+                revenue: "¥12.8 億 <span class='delta-tag delta-up'>YoY +18.2%</span>", profit: "¥1.1 億", gm: "34.2%", fcf: "¥0.6 億", leadTime: "5 - 7 個月", trend: "<span class='delta-down'>縮短</span>", fxRisk: "中", loadingRate: "80%",
+                strategy: "舊機翻新改造擁有極佳的服務能量與價格競爭力（比原廠便宜 40% 以上）。採購可將其定位為成熟產線『降低持有成本（CoO）』的核心防線。",
+                clip: "polygon(50% 35%, 60% 60%, 80% 70%, 90% 65%, 82% 32%)",
+                tt_f1: `<div class='tt-header'>核心財務</div>`, tt_f2: `<div class='tt-header'>改造壁壘</div>`,
+                tt_f3: `<div class='tt-header'>服務據點</div><div class='tt-row'><span class='tt-label'>分布據點:</span><span class='tt-value tt-highlight'>上海臨港新片區、浙江紹興、寧波維修基地</span></div>`,
+                tt_f4: `<div class='tt-header'>競爭者狀態</div><div class='tt-row'><span class='tt-label'>主要競爭者:</span><span class='tt-value'>亞翔集成, 靖江樺冠, 國際二手設備盤商</span></div><div class='tt-row'><span class='tt-label'>對手Model:</span><span class='tt-value tt-highlight'>無標準 Model，主攻 AMAT Centura / Lam Alliance 平台改裝</span></div>`,
+                tt_f5: `<div class='tt-header'>產能多元性</div><div class='tt-row'><span class='tt-label'>製造工廠:</span><span class='tt-value'>上海臨港半導體設備翻新基地、中芯紹興配套中心</span></div>`,
+                earnings: [{ topic: "自研 PECVD 技術進展", q: "自研薄膜設備進展如何？", a: "自研 PECVD 設備已在國內數家 6吋/8吋 SiC 先導線上實現統包交付。"}]
+            }
         };
+
+        // 展開與隱藏預警中心
+        let isAlertExpanded = true;
+        function toggleAlertCenter() {
+            const container = document.getElementById('alert-news-container');
+            const icon = document.getElementById('alert-toggle-icon');
+            isAlertExpanded = !isAlertExpanded;
+            
+            if (isAlertExpanded) {
+                container.classList.remove('collapsed');
+                icon.innerHTML = `<i class="fa-solid fa-chevron-down"></i> 隱藏`;
+            } else {
+                container.classList.add('collapsed');
+                icon.innerHTML = `<i class="fa-solid fa-chevron-up"></i> 展開`;
+            }
+        }
+
+        // 渲染預警新聞 (並根據目前選擇的廠商進行動態高亮聯動)
+        function renderAlertNews(activeVendorKey) {
+            const container = document.getElementById('alert-news-container');
+            let html = "";
+            
+            industryNews.forEach(news => {
+                const isMatched = (news.target === activeVendorKey);
+                const badgeColor = news.level === 'danger' ? 'badge-danger' : (news.level === 'warning' ? 'badge-warn' : 'badge-safe');
+                const cardClass = news.level === 'danger' ? 'news-card danger' : (news.level === 'info' ? 'news-card info' : 'news-card');
+                const highlightClass = isMatched ? "highlight-news" : "";
+                
+                html += `
+                    <div class="${cardClass} ${highlightClass}" id="news-${news.id}">
+                        <div class="news-tag-row">
+                            <span class="news-badge ${badgeColor}">【${news.type}】</span>
+                            ${isMatched ? `<span class="news-badge badge-safe" style="background:rgba(34,211,238,0.2); color:var(--cyan); border:1px solid var(--cyan);"><i class="fa-solid fa-bullseye"></i> 焦點關聯</span>` : ''}
+                        </div>
+                        <h4>${news.title}</h4>
+                        <p>${news.desc}</p>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+
+            // 智慧滾動：如果是聯動新聞，自動將其置頂或滾動到視野內
+            if (activeVendorKey) {
+                const targetNews = industryNews.find(n => n.target === activeVendorKey);
+                if (targetNews) {
+                    setTimeout(() => {
+                        const element = document.getElementById(`news-${targetNews.id}`);
+                        element?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 150);
+                }
+            }
+        }
 
         function renderTables(vendorData) {
             document.getElementById('table-body-finance').innerHTML = `
@@ -418,19 +539,17 @@
                         </div>
                     `;
                 });
-            } else {
-                earningsHtml = "<div style='color:var(--text-dim); font-size:12px; text-align:center;'>暫無最新一季法說會細項問答數據。</div>";
             }
             document.getElementById('table-body-earnings').innerHTML = earningsHtml;
         }
 
         function updateTooltips(vendorKey) {
             const data = vendorDatabase[vendorKey];
-            document.getElementById('tt-f1').innerHTML = data.tt_finance;
-            document.getElementById('tt-f2').innerHTML = data.tt_tech;
-            document.getElementById('tt-f3').innerHTML = data.tt_capacity;
-            document.getElementById('tt-f4').innerHTML = data.tt_price;
-            document.getElementById('tt-f5').innerHTML = data.tt_service;
+            document.getElementById('tt-f1').innerHTML = data.tt_f1;
+            document.getElementById('tt-f2').innerHTML = data.tt_f2;
+            document.getElementById('tt-f3').innerHTML = data.tt_f3;
+            document.getElementById('tt-f4').innerHTML = data.tt_f4;
+            document.getElementById('tt-f5').innerHTML = data.tt_f5;
         }
 
         function switchVendor(vendorKey) {
@@ -449,6 +568,9 @@
             
             renderTables(data);
             updateTooltips(vendorKey);
+            
+            // 觸發左下角預警中心的高亮聯動
+            renderAlertNews(vendorKey);
         }
 
         function handleSearch() {
